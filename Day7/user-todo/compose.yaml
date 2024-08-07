@@ -1,0 +1,29 @@
+services:
+  db:
+    container_name: 'user-todo-db'
+    image: 'mariadb:10.4.32'
+    environment:
+      - 'MARIADB_DATABASE=mydatabase'
+      - 'MARIADB_ROOT_PASSWORD=1234'
+      - 'MARIADB_USER=myuser'
+      - 'MARIADB_PASSWORD=secret'
+    ports:
+      - '3306:3306'
+    networks:
+      - java-net
+
+  phpmyadmin:
+    container_name: "user-todo-phpmyadmin"
+    image: "phpmyadmin:5.2.1"
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - java-net
+
+networks:
+  java-net:
