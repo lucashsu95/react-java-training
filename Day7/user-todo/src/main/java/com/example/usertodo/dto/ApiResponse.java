@@ -26,7 +26,7 @@ public class ApiResponse<T> {
         return ResponseEntity.ok(new ApiResponse<>(true, null,null));
     }
 
-    public static <T> ResponseEntity<ApiResponse<T>> fail(String message, Integer statusCode) {
+    public static <T> ResponseEntity fail(String message, Integer statusCode) {
         HttpStatus status = HttpStatus.valueOf(statusCode);
         return ResponseEntity.status(status).body(new ApiResponse<>(false, null, message));
     }

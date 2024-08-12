@@ -1,6 +1,7 @@
 package com.example.usertodo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -21,7 +22,7 @@ public class User {
     @Column()
     private String nickname;
 
-    @Column()
+    @Column(unique = true)
     private String email;
 
     @Column(name = "password_hash")
