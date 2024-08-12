@@ -2,6 +2,8 @@ package com.example.usertodo.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @Getter
 @Setter
@@ -16,15 +18,44 @@ public class ApiResponse<T> {
         this.message = message;
     }
 
-    public static <T> ApiResponse<T> success(T data) {
-        return new ApiResponse<>(true, data, null);
+    public static <T> ResponseEntity<ApiResponse<T>> success(T data) {
+        return ResponseEntity.ok(new ApiResponse<>(true, data,null));
     }
 
-    public static <T> ApiResponse<T> success() {
-        return new ApiResponse<>(true,null, null);
+    public static ResponseEntity success() {
+        return ResponseEntity.ok(new ApiResponse<>(true, null,null));
     }
 
-    public static <T> ApiResponse<T> fail(String message) {
-        return new ApiResponse<>(false, null, message);
+    public static <T> ResponseEntity<ApiResponse<T>> fail(String message, Integer statusCode) {
+        HttpStatus status = HttpStatus.valueOf(statusCode);
+        return ResponseEntity.status(status).body(new ApiResponse<>(false, null, message));
+    }
+
+    public static ResponseEntity INVALID_LOGIN() {
+        return fail("MSG_INVALID_LOGIN", 403);
+    }
+
+    public static ResponseEntity USER_EXISTS() {
+        return fail("MSG_USER_EXISTS", 409);
+    }
+
+    public static ResponseEntity USER_NOT_EXISTS() {
+        return fail("MSG_USER_NOT_EXISTS", 404);
+    }
+
+    public static ResponseEntity INVALID_ACCESS_TOKEN() {
+        return fail("MSG_INVALID_ACCESS_TOKEN", 401);
+    }
+
+    public static ResponseEntity PERMISSION_DENY() {
+        return fail("MSG_PERMISSION_DENY", 403);
+    }
+
+    public static ResponseEntity MISSING_FIELD() {
+        return fail("MSG_MISSING_FIELD", 400);
+    }
+
+    public static ResponseEntity WRONG_DATA_TYPE() {
+        return fail("MSG_WRONG_DATA_TYPE", 400);
     }
 }

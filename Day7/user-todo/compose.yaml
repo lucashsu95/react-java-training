@@ -9,6 +9,8 @@ services:
       - 'MARIADB_PASSWORD=secret'
     ports:
       - '3306:3306'
+    volumes:
+      - db-data:/var/lib/mysql
     networks:
       - java-net
 
@@ -27,3 +29,6 @@ services:
 
 networks:
   java-net:
+
+volumes:
+  db-data:
