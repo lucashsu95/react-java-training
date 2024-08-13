@@ -20,19 +20,15 @@ public class AccessTokenValidator {
 
     public ResponseEntity<?> validate(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
-        if (header == null || header.isEmpty()) {
-            return ApiResponse.INVALID_ACCESS_TOKEN();
-        }
-
-        String[] parts = header.split(" ");
-        if (parts.length == 2 && "Bearer".equals(parts[0])) {
-            String token = parts[1];
-            Optional<User> userOptional = userRepository.findByAccessToken(token);
-            if (userOptional.isPresent()) {
-                return null; // Token valid
+        if (header != null) {
+            String[] token = header.split(" ");
+            if (token.length == 2 && token[0].equals("Bearer")) {
+                Optional<User> user = userRepository.findByAccessToken(token[1]);
+                if(user.isPresent()) {
+                    return ResponseEntity.ok(user.get());
+                }
             }
         }
-
         return ApiResponse.INVALID_ACCESS_TOKEN();
     }
 }

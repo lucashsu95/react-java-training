@@ -4,6 +4,9 @@ import com.example.usertodo.Repository.UserRepository;
 import com.example.usertodo.dto.*;
 import com.example.usertodo.model.User;
 
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
@@ -16,10 +19,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AccessTokenValidator accessTokenValidator;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+            AccessTokenValidator accessTokenValidator) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.accessTokenValidator = accessTokenValidator;
     }
 
     public ResponseEntity<?> index() {
@@ -86,8 +92,13 @@ public class UserService {
                 .orElse(ApiResponse.INVALID_LOGIN());
     }
 
-    public ResponseEntity<?> logout(String token) {
-        User user = userRepository.findByAccessToken(token).get();
+    @SuppressWarnings("null")
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        ResponseEntity<?> validationResponse = accessTokenValidator.validate(request);
+        if (!validationResponse.getStatusCode().is2xxSuccessful()) { // 檢查是否成功
+            return validationResponse;
+        }
+        User user = (User) validationResponse.getBody(); // 取得 User 物件
         user.setAccess_token(null);
         userRepository.save(user);
         return ApiResponse.success();

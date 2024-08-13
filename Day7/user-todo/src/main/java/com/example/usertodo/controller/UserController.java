@@ -1,10 +1,11 @@
 package com.example.usertodo.controller;
 
-import com.example.usertodo.annotation.RequireToken;
 import com.example.usertodo.dto.UserLoginInputs;
 import com.example.usertodo.dto.UserWithInsert;
 import com.example.usertodo.dto.UserWithUpdate;
 import com.example.usertodo.service.UserService;
+
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,8 +45,7 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    @RequireToken
-    public ResponseEntity<?> logout(@RequestHeader("Authorization") String token) {
-        return userService.logout(token);
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        return userService.logout(request);
     }
 }
