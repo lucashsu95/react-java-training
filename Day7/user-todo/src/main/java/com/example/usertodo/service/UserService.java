@@ -1,14 +1,15 @@
 package com.example.usertodo.service;
 
 import com.example.usertodo.Repository.UserRepository;
-import com.example.usertodo.dto.ApiResponse;
+import com.example.usertodo.dto.*;
 import com.example.usertodo.model.User;
+
+import java.util.UUID;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -25,21 +26,37 @@ public class UserService {
         return ApiResponse.success(userRepository.findAll());
     }
 
-    public ResponseEntity<?> insert(User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
+    public ResponseEntity<?> insert(UserWithInsert request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
             return ApiResponse.USER_EXISTS();
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User user = new User();
+        user.setEmail(request.getEmail());
+        user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
+        user.setNickname(request.getNickname());
+        user.setType(User.UserType.valueOf(request.getType()));
         return ApiResponse.success(userRepository.save(user));
     }
 
-    public ResponseEntity<?> update(Long id, User request) {
+    public ResponseEntity<?> update(Long id, UserWithUpdate request) {
         return userRepository.findById(id)
                 .map(user -> {
                     if (userRepository.existsByEmailAndIdNot(request.getEmail(), id)) {
                         return ApiResponse.USER_EXISTS();
                     }
-                    updateUserFields(user, request);
+                    if (request.getEmail() != null) {
+                        user.setEmail(request.getEmail());
+                    }
+                    if (request.getNickname() != null) {
+                        user.setNickname(request.getNickname());
+                    }
+                    if (request.getType() != null) {
+                        user.setType(User.UserType.valueOf(request.getType()));
+                    }
+                    if (request.getPassword() != null) {
+                        user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
+                    }
+
                     return ApiResponse.success(userRepository.save(user));
                 })
                 .orElse(ApiResponse.USER_NOT_EXISTS());
@@ -54,12 +71,28 @@ public class UserService {
                 .orElse(ApiResponse.USER_NOT_EXISTS());
     }
 
-    private void updateUserFields(User user, User request) {
-        Optional.ofNullable(request.getEmail()).ifPresent(user::setEmail);
-        Optional.ofNullable(request.getNickname()).ifPresent(user::setNickname);
-        Optional.ofNullable(request.getPassword()).ifPresent(password -> user.setPassword(passwordEncoder.encode(password)));
-        Optional.ofNullable(request.getType()).ifPresent(user::setType);
+    public ResponseEntity<?> login(UserLoginInputs request) {
+        return userRepository.findByEmail(request.getEmail())
+                .map(user -> {
+                    if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
+                        return ApiResponse.INVALID_LOGIN();
+                    }
+                    String token = UUID.randomUUID().toString();
+                    user.setAccess_token(token);
+                    userRepository.save(user);
+
+                    return ApiResponse.success(new UserWithToken(user));
+                })
+                .orElse(ApiResponse.INVALID_LOGIN());
     }
+
+    public ResponseEntity<?> logout(String token) {
+        User user = userRepository.findByAccessToken(token).get();
+        user.setAccess_token(null);
+        userRepository.save(user);
+        return ApiResponse.success();
+    }
+
 }
 
 @Component
@@ -68,5 +101,9 @@ class PasswordEncoder {
 
     public String encode(String password) {
         return encoder.encode(password);
+    }
+
+    public boolean matches(String rawPassword, String encodedPassword) {
+        return encoder.matches(rawPassword, encodedPassword);
     }
 }

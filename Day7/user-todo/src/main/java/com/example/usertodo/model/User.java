@@ -1,7 +1,9 @@
 package com.example.usertodo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -13,27 +15,33 @@ import java.sql.Timestamp;
 @Data
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
+
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column()
-    private String nickname;
-
+    @NotNull()
+    @Email()
     @Column(unique = true)
     private String email;
 
+    @JsonIgnore
     @Column(name = "password_hash")
-    private String password;
+    private String passwordHash;
 
+    @NotNull()
+    @Column()
+    private String nickname;
 
     @Enumerated(EnumType.STRING)
     @Column()
+    @NotNull()
     private UserType type;
 
     @Column()
+    @JsonIgnore
     private String access_token;
 
     @CreatedDate
@@ -43,6 +51,7 @@ public class User {
     @LastModifiedDate
     @Column(name = "updated_at")
     private Timestamp updatedAt;
+
 
     public enum UserType {
         USER,
