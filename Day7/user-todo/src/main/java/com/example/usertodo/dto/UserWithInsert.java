@@ -3,20 +3,19 @@ package com.example.usertodo.dto;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.NonNull;
 
 @Getter
 @RequiredArgsConstructor
 public class UserWithInsert {
     @NotNull()
-    private final String email;
+    private String email;
 
     @NotNull()
-    private final String nickname;
+    private String nickname;
 
     @NotNull()
-    private final String type;
+    private String type;
 
     @NotNull()
-    private final String password;
+    private String password;
 }

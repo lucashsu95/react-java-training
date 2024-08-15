@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -17,16 +18,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final AccessTokenValidator accessTokenValidator;
-
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
-            AccessTokenValidator accessTokenValidator) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.accessTokenValidator = accessTokenValidator;
-    }
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private CheckTokenValidator checkToken;
+    @Autowired
+    private CheckAdminValidator checkAdmin;
 
     public ResponseEntity<?> index() {
         return ApiResponse.success(userRepository.findAll());
@@ -44,37 +43,61 @@ public class UserService {
         return ApiResponse.success(userRepository.save(user));
     }
 
-    public ResponseEntity<?> update(Long id, UserWithUpdate request) {
+    public ResponseEntity<?> update(Long id, UserWithUpdate userWithUpdate, HttpServletRequest request) {
+        ResponseEntity<?> validationResponse = checkToken.validate(request);
+        if (!validationResponse.getStatusCode().is2xxSuccessful()) { // 檢查是否成功
+            return validationResponse;
+        }
+
+        User user = (User) validationResponse.getBody(); // 取得 User 物件
+        System.out.println(user);
+        ResponseEntity<?> checkAdminResponse = checkAdmin.validate(user);
+        if (!checkAdminResponse.getStatusCode().is2xxSuccessful()) { // 檢查是否成功
+            return checkAdminResponse;
+        }
+
         return userRepository.findById(id)
-                .map(user -> {
-                    if (userRepository.existsByEmailAndIdNot(request.getEmail(), id)) {
+                .map(existingUser -> {
+                    if (userRepository.existsByEmailAndIdNot(userWithUpdate.getEmail(), id)) {
                         return ApiResponse.USER_EXISTS();
                     }
-                    if (request.getEmail() != null) {
-                        user.setEmail(request.getEmail());
+                    if (userWithUpdate.getEmail() != null) {
+                        existingUser.setEmail(userWithUpdate.getEmail());
                     }
-                    if (request.getNickname() != null) {
-                        user.setNickname(request.getNickname());
+                    if (userWithUpdate.getNickname() != null) {
+                        existingUser.setNickname(userWithUpdate.getNickname());
                     }
-                    if (request.getType() != null) {
-                        user.setType(User.UserType.valueOf(request.getType()));
+                    if (userWithUpdate.getType() != null) {
+                        existingUser.setType(User.UserType.valueOf(userWithUpdate.getType()));
                     }
-                    if (request.getPassword() != null) {
-                        user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
+                    if (userWithUpdate.getPassword() != null) {
+                        existingUser.setPasswordHash(passwordEncoder.encode(userWithUpdate.getPassword()));
                     }
 
-                    return ApiResponse.success(userRepository.save(user));
+                    return ApiResponse.success(userRepository.save(existingUser));
                 })
                 .orElse(ApiResponse.USER_NOT_EXISTS());
     }
 
-    public ResponseEntity<?> destroy(Long id) {
-        return userRepository.findById(id)
-                .map(user -> {
-                    userRepository.delete(user);
-                    return ApiResponse.success();
-                })
-                .orElse(ApiResponse.USER_NOT_EXISTS());
+    public ResponseEntity<?> destroy(Long id, HttpServletRequest request) {
+        ResponseEntity<?> validationResponse = checkToken.validate(request);
+        if (!validationResponse.getStatusCode().is2xxSuccessful()) { // 檢查是否成功
+            return validationResponse;
+        }
+
+        User user = (User) validationResponse.getBody(); // 取得 User 物件
+        
+        ResponseEntity<?> checkAdminResponse = checkAdmin.validate(user);
+        if (!checkAdminResponse.getStatusCode().is2xxSuccessful()) { // 檢查是否成功
+            return checkAdminResponse;
+        }
+
+        Optional<User> userToDelete = userRepository.findById(id);
+        if(userToDelete.isPresent()) {
+            userRepository.delete(userToDelete.get());
+            return ApiResponse.success();
+        }
+        return ApiResponse.USER_NOT_EXISTS();
     }
 
     public ResponseEntity<?> login(UserLoginInputs request) {
@@ -94,7 +117,7 @@ public class UserService {
 
     @SuppressWarnings("null")
     public ResponseEntity<?> logout(HttpServletRequest request) {
-        ResponseEntity<?> validationResponse = accessTokenValidator.validate(request);
+        ResponseEntity<?> validationResponse = checkToken.validate(request);
         if (!validationResponse.getStatusCode().is2xxSuccessful()) { // 檢查是否成功
             return validationResponse;
         }

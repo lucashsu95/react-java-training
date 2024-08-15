@@ -1,6 +1,8 @@
 package com.example.usertodo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -15,7 +17,7 @@ import java.sql.Timestamp;
 @Data
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 
     @Id

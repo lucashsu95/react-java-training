@@ -1,5 +1,6 @@
 package com.example.usertodo.dto;
 
+import com.example.usertodo.model.Todo;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
@@ -19,43 +20,47 @@ public class ApiResponse<T> {
     }
 
     public static <T> ResponseEntity<ApiResponse<T>> success(T data) {
-        return ResponseEntity.ok(new ApiResponse<>(true, data,null));
+        return ResponseEntity.ok(new ApiResponse<>(true, data, null));
     }
 
-    public static ResponseEntity success() {
-        return ResponseEntity.ok(new ApiResponse<>(true, null,null));
+    public static ResponseEntity<?> success() {
+        return ResponseEntity.ok(new ApiResponse<>(true, null, null));
     }
 
-    public static <T> ResponseEntity fail(String message, Integer statusCode) {
+    public static <T> ResponseEntity<?> fail(String message, Integer statusCode) {
         HttpStatus status = HttpStatus.valueOf(statusCode);
         return ResponseEntity.status(status).body(new ApiResponse<>(false, null, message));
     }
 
-    public static ResponseEntity INVALID_LOGIN() {
+    public static ResponseEntity<?> INVALID_LOGIN() {
         return fail("MSG_INVALID_LOGIN", 403);
     }
 
-    public static ResponseEntity USER_EXISTS() {
+    public static ResponseEntity<?> USER_EXISTS() {
         return fail("MSG_USER_EXISTS", 409);
     }
 
-    public static ResponseEntity USER_NOT_EXISTS() {
+    public static ResponseEntity<?> USER_NOT_EXISTS() {
         return fail("MSG_USER_NOT_EXISTS", 404);
     }
 
-    public static ResponseEntity INVALID_ACCESS_TOKEN() {
+    public static ResponseEntity<?> INVALID_ACCESS_TOKEN() {
         return fail("MSG_INVALID_ACCESS_TOKEN", 401);
     }
 
-    public static ResponseEntity PERMISSION_DENY() {
+    public static ResponseEntity<?> PERMISSION_DENY() {
         return fail("MSG_PERMISSION_DENY", 403);
     }
 
-    public static ResponseEntity MISSING_FIELD() {
+    public static ResponseEntity<?> MISSING_FIELD() {
         return fail("MSG_MISSING_FIELD", 400);
     }
 
-    public static ResponseEntity WRONG_DATA_TYPE() {
+    public static ResponseEntity<?> WRONG_DATA_TYPE() {
         return fail("MSG_WRONG_DATA_TYPE", 400);
+    }
+
+    public static ResponseEntity<?> TODO_NOT_EXISTS() {
+        return fail("MSG_TODO_NOT_EXISTS", 404);
     }
 }

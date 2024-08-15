@@ -7,17 +7,17 @@ import com.example.usertodo.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-    private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     public ResponseEntity<?> index() {
@@ -30,13 +30,13 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody UserWithUpdate user) {
-        return userService.update(id, user);
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody UserWithUpdate user, HttpServletRequest request) {
+        return userService.update(id, user, request);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> destroy(@PathVariable Long id) {
-        return userService.destroy(id);
+    public ResponseEntity<?> destroy(@PathVariable Long id, HttpServletRequest request) {
+        return userService.destroy(id, request);
     }
 
     @PostMapping("/login")

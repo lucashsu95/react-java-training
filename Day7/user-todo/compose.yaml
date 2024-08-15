@@ -1,12 +1,12 @@
 services:
   db:
     container_name: 'user-todo-db'
-    image: 'mariadb:10.4.32'
+    image: 'mysql:latest'
     environment:
-      - 'MARIADB_DATABASE=mydatabase'
-      - 'MARIADB_ROOT_PASSWORD=1234'
-      - 'MARIADB_USER=myuser'
-      - 'MARIADB_PASSWORD=secret'
+      - 'MYSQL_DATABASE=mydatabase'
+      - 'MYSQL_ROOT_PASSWORD=1234'
+      - 'MYSQL_USER=myuser'
+      - 'MYSQL_PASSWORD=secret'
     ports:
       - '3306:3306'
     volumes:
