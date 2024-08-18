@@ -28,8 +28,8 @@ function App() {
       <main className="wraps">
         {page === 'login' && <Login setPage={setPage} setCurrentUser={setCurrentUser} />}
         {page === 'signup' && <Signup setPage={setPage} />}
-        {page === 'todo' && <TodoList currentUser={currentUser} />}
-        {page === 'user' && <UserList currentUser={currentUser} />}
+        {page === 'todos' && <TodoList currentUser={currentUser} />}
+        {page === 'users' && <UserList currentUser={currentUser} />}
       </main>
     </div>
   );

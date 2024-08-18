@@ -1,5 +1,6 @@
 package com.example.usertodoapi.service;
 
+import com.example.usertodoapi.Repository.TodoRepository;
 import com.example.usertodoapi.Repository.UserRepository;
 import com.example.usertodoapi.dto.*;
 import com.example.usertodoapi.model.User;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional; // Added this import
 
 @Service
 public class UserService {
@@ -26,6 +28,8 @@ public class UserService {
     private CheckTokenValidator checkToken;
     @Autowired
     private CheckAdminValidator checkAdmin;
+    @Autowired
+    private TodoRepository todoRepository;
 
     public ResponseEntity<?> index() {
         return ApiResponse.success(userRepository.findAll());
@@ -67,18 +71,13 @@ public class UserService {
                     if (userWithUpdate.getNickname() != null) {
                         existingUser.setNickname(userWithUpdate.getNickname());
                     }
-                    if (userWithUpdate.getType() != null) {
-                        existingUser.setType(User.UserType.valueOf(userWithUpdate.getType()));
-                    }
-                    if (userWithUpdate.getPassword() != null) {
-                        existingUser.setPasswordHash(passwordEncoder.encode(userWithUpdate.getPassword()));
-                    }
 
                     return ApiResponse.success(userRepository.save(existingUser));
                 })
                 .orElse(ApiResponse.USER_NOT_EXISTS());
     }
 
+    @Transactional // Added this annotation to ensure transactional management
     public ResponseEntity<?> destroy(Long id, HttpServletRequest request) {
         ResponseEntity<?> validationResponse = checkToken.validate(request);
         if (!validationResponse.getStatusCode().is2xxSuccessful()) { // 檢查是否成功
@@ -94,7 +93,9 @@ public class UserService {
 
         Optional<User> userToDelete = userRepository.findById(id);
         if (userToDelete.isPresent()) {
-            userRepository.delete(userToDelete.get());
+            User userEntity = userToDelete.get();
+            todoRepository.deleteByUser(userEntity);
+            userRepository.delete(userEntity);
             return ApiResponse.success();
         }
         return ApiResponse.USER_NOT_EXISTS();

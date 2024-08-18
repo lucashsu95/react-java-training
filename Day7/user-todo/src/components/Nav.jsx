@@ -25,6 +25,14 @@ export default function Nav({ setPage, currentUser, setCurrentUser }) {
               <a>{currentUser?.nickname}</a>
             </li>
             <li>
+              <a onClick={() => setPage('todos')}>待辦事項管理</a>
+            </li>
+            {currentUser?.type === 'ADMIN' && (
+              <li>
+                <a onClick={() => setPage('users')}>會員管理</a>
+              </li>
+            )}
+            <li>
               <a onClick={logout}>登出</a>
             </li>
           </ul>

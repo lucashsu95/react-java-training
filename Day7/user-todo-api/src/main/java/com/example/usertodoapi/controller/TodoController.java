@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -35,6 +36,7 @@ public class TodoController {
     }
 
     @DeleteMapping("/{id}")
+    @Transactional
     public ResponseEntity<?> destroy(@PathVariable Long id, HttpServletRequest request) {
         return todoService.destroy(id, request);
     }

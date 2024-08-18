@@ -25,7 +25,7 @@ function Login({ setPage, setCurrentUser }) {
           type: data.data.type,
           accessToken: data.data.access_token,
         });
-        setPage('todo');
+        setPage('todos');
       })
       .catch((err) => AlertDialog('error', err));
   };
