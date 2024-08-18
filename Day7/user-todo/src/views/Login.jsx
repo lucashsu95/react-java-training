@@ -1,46 +1,34 @@
 import { useRef } from 'react';
-import { useApi } from '../hooks/useApi';
-import { useEffect } from 'react';
+import api from '../api/api';
+import AlertDialog from '../api/ApiResponse';
 
 function Login({ setPage, setCurrentUser }) {
   const email = useRef();
   const password = useRef();
-  const { data, error, postData } = useApi();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const payload = {
-      email: email.current.value,
-      password: password.current.value,
-    };
-    postData('http://localhost:8000/api/users/login', payload);
-  };
 
-  useEffect(() => {
-    if (data) {
-      console.log('資料:', data);
-      if (data.success) {
-        alert('登入成功');
-        const user = {
+    api
+      .postLogin({
+        data: {
+          email: email.current.value,
+          password: password.current.value,
+        },
+      })
+      .then((res) => {
+        const data = res.data;
+        AlertDialog('success', '登入成功');
+        setCurrentUser({
           nickname: data.data.nickname,
           email: data.data.email,
           type: data.data.type,
           accessToken: data.data.access_token,
-        };
-        console.log('user:', user);
-        setCurrentUser(user);
+        });
         setPage('todo');
-      } else {
-        alert('登入失敗: ' + data.message);
-      }
-    }
-  }, [data, setPage]);
-
-  useEffect(() => {
-    if (error) {
-      alert(error);
-    }
-  }, [error]);
+      })
+      .catch((err) => AlertDialog('error', err));
+  };
 
   return (
     <div className="wrap">

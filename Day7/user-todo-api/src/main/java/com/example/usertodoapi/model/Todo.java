@@ -2,6 +2,7 @@ package com.example.usertodoapi.model;
 
 import java.sql.Timestamp;
 
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -19,12 +20,14 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "text")
-    @NotNull
+    @Column()
+    @NotNull()
+    @NotBlank(message = "不得是空值")
     private String title;
 
-    @Column(columnDefinition = "text")
-    @NotNull
+    @Column()
+    @NotNull()
+    @NotBlank(message = "不得是空值")
     private String content;
 
     @Column(columnDefinition = "boolean default false")

@@ -1,13 +1,12 @@
 import { useRef } from 'react';
-import { useApi } from '../hooks/useApi';
-import { useEffect } from 'react';
+import api from '../api/api';
+import AlertDialog from '../api/ApiResponse';
 
 function Signup({ setPage }) {
   const email = useRef();
   const password = useRef();
   const nickname = useRef();
   const type = useRef();
-  const { data, error, postData } = useApi();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,29 +17,17 @@ function Signup({ setPage }) {
       nickname: nickname.current.value,
       type: type.current.value,
     };
-    console.log(payload);
-    postData('http://localhost:8000/api/users', payload);
-    email.current.value = '';
-    password.current.value = '';
-    nickname.current.value = '';
-  };
-
-  useEffect(() => {
-    if (data) {
-      if (data.success) {
-        alert('註冊成功');
+    api
+      .postUsers({ data: { payload } })
+      .then(() => {
+        AlertDialog('success', '註冊成功');
         setPage('login');
-      } else {
-        alert('註冊失敗: ' + data.message);
-      }
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (error) {
-      alert(error);
-    }
-  }, [error]);
+        email.current.value = '';
+        password.current.value = '';
+        nickname.current.value = '';
+      })
+      .catch((err) => AlertDialog('error', err));
+  };
 
   return (
     <div className="wrap">

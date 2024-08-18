@@ -1,29 +1,17 @@
-import { useEffect } from 'react';
-import { useApi } from '../hooks/useApi';
+import api from '../api/api';
+import AlertDialog from '../api/ApiResponse';
 
 export default function Nav({ setPage, currentUser, setCurrentUser }) {
-  const { data, error, postData } = useApi();
   const logout = () => {
-    postData('http://localhost:8000/api/users/logout');
-  };
-
-  useEffect(() => {
-    if (data) {
-      if (data.success) {
+    api
+      .postLogout()
+      .then(() => {
         setCurrentUser({});
-        alert('登出成功');
+        AlertDialog('success', '登出成功');
         setPage('login');
-      } else {
-        alert('登出失敗', data.message);
-      }
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (error) {
-      alert(error);
-    }
-  }, [error]);
+      })
+      .catch((err) => AlertDialog('error', err));
+  };
 
   return (
     <nav className="flex justify-between px-10 py-4 bg-slate-600 text-white shadow-[2px_0_15px] shadow-indigo-300 items-center fixed w-full top-0">
@@ -34,10 +22,10 @@ export default function Nav({ setPage, currentUser, setCurrentUser }) {
         <>
           <ul className="flex items-center gap-5">
             <li>
-              <a onClick={logout}>登出</a>
+              <a>{currentUser?.nickname}</a>
             </li>
             <li>
-              <a>{currentUser?.nickname}</a>
+              <a onClick={logout}>登出</a>
             </li>
           </ul>
         </>

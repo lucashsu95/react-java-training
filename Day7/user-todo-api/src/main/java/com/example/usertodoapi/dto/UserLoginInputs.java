@@ -7,12 +7,12 @@ import lombok.Getter;
 
 @Getter
 public class UserLoginInputs {
-    @NotNull(message = "不能為空")
+    @NotNull(message = "不得是空值")
     @Email(message = "格式不正確")
-    @NotBlank(message = "不能為空")
+    @NotBlank(message = "不得是空值")
     String email;
 
-    @NotNull(message = "不能為空")
-    @NotBlank(message = "不能為空")
+    @NotNull(message = "不得是空值")
+    @NotBlank(message = "不得是空值")
     String password;
 }

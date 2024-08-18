@@ -34,6 +34,10 @@
     @apply bg-slate-500 text-white;
 }
 
+.btn-danger {
+    @apply bg-pink-500 text-white;
+}
+
 a {
     @apply text-sky-500 cursor-pointer;
 }

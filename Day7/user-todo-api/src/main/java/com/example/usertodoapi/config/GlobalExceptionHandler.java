@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
 
         // 根據錯誤類型返回不同的錯誤響應
         System.out.println(errors);
-        if (errors.values().stream().anyMatch(msg -> msg.contains("不能為空"))) {
+        if (errors.values().stream().anyMatch(msg -> msg.contains("不得是空值"))) {
             return ApiResponse.MISSING_FIELD();
         }
         if (errors.values().stream().anyMatch(msg -> msg.contains("格式不正確"))) {
