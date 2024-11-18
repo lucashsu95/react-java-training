@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import models.Product;
-import models.User;
+import models.abstracts.User;
 
 public class Store {
     public static ArrayList<Product> products = new ArrayList<>();
@@ -17,4 +17,7 @@ public class Store {
             put("token", null);
         }
     };
+
+    public class users {
+    }
 }

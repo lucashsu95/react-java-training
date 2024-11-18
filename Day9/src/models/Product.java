@@ -1,8 +1,5 @@
 package models;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Product {
     String name;
     int amount = 0, price = 0;

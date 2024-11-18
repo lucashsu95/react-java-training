@@ -4,6 +4,20 @@
 
 商店DEMO
 
+## How to Start ?
+
+### 編譯
+在`day9/src/`
+```bash
+javac -d out -encoding UTF-8 Main.java
+```
+
+### 執行
+
+```bash
+java -cp out Main
+```
+
 ## Feature
 
 - [x] 結束程式

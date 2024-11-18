@@ -2,6 +2,7 @@ package models;
 
 import java.util.Map;
 
+import models.abstracts.User;
 import store.Store;
 
 public class Boss extends User {

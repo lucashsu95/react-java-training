@@ -21,11 +21,17 @@ public class Const {
         return displayString + "\n";
     }
 
-    public static String getProductTip() {
+    public static String getManageProductTip() {
         String displayString = "# 可用動作：\n- 0:返回上一頁" + //
                 "\n- 1:新增商品" + //
                 "\n- 2:修改商品" + //
                 "\n- 3:刪除商品";
+        return displayString + "\n";
+    }
+
+    public static String getUserProductTip() {
+        String displayString = "# 可用動作：\n- 0:返回上一頁" + //
+                "\n- 1:購買商品";
         return displayString + "\n";
     }
 
@@ -36,10 +42,18 @@ public class Const {
         return displayString + "\n";
     }
 
-    public static String getUserTip() {
+    public static String getManageUserTip() {
         String displayString = "# 可用動作：\n- 0:返回上一頁" + //
                 "\n- 1:查看使用者" + //
                 "\n- 2:新增使用者";
+        return displayString + "\n";
+    }
+
+    public static String getPaymentTip() {
+        String displayString = "# 可用動作：\n- 0:返回上一頁" + //
+                "\n- 1:現金" + //
+                "\n- 2:Line Pay付款" + //
+                "\n- 3:Apple Pay付款";
         return displayString + "\n";
     }
 

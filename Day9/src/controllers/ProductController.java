@@ -1,9 +1,11 @@
 package controllers;
 
+import static lib.Const.getPaymentTip;
 import static lib.Functions.OutAndInput;
 import static store.Store.products;
 
 import models.Product;
+import models.abstracts.Payment;
 
 public class ProductController {
     public static void printProduct() {
@@ -52,4 +54,31 @@ public class ProductController {
         }
         System.out.println("找不到商品");
     }
+
+    public static void buyProduct() {
+        printProduct();
+        String name = OutAndInput("輸入商品名稱：");
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                int amount = Integer.parseInt(OutAndInput("輸入購買數量："));
+                if (product.getAmount() >= amount) {
+                    product.setAmount(product.getAmount() - amount);
+                    System.out.println("輸入付款方式：");
+                    String usePayment = OutAndInput(getPaymentTip());
+                    Payment currentPayment = Payment.createPayment(usePayment);
+
+                    float price = product.getPrice() * amount;
+                    float discountedPrice = currentPayment.pay(price);
+                    System.out.println("原價: " + price + " 折扣後價格: " + discountedPrice);
+                    System.out.println("購買成功");
+                    return;
+                } else {
+                    System.out.println("庫存不足");
+                    return;
+                }
+            }
+        }
+        System.out.println("找不到商品");
+    }
+
 }

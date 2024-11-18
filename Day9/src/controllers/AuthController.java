@@ -15,6 +15,10 @@ public class AuthController {
         // 時間不足，未實作token機制
     }
 
+    public static boolean checkPermission() {
+        return currentUser.get("role").equals("老闆");
+    }
+
     public static void login() {
         String username = OutAndInput("輸入帳號：");
         String password = OutAndInput("輸入密碼：");

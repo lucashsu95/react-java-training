@@ -1,6 +1,7 @@
 package routes;
 
 import static lib.Functions.*;
+import static store.Store.currentUser;
 import static lib.Const.*;
 
 import controllers.UserController;
@@ -34,10 +35,16 @@ public class Api {
                 AuthController.signUp();
                 return true;
             case "5":
-                productApi();
+                if (currentUser.get("role") == "老闆") {
+                    manageProductApi();
+                } else {
+                    userProductApi();
+                }
                 return true;
             case "6":
-                userApi();
+                if (currentUser.get("role") == "老闆") {
+                    manageUserApi();
+                }
                 return true;
             default:
                 break;
@@ -62,8 +69,8 @@ public class Api {
         }
     }
 
-    public static void productApi() {
-        String key = OutAndInput(getProductTip());
+    public static void manageProductApi() {
+        String key = OutAndInput(getManageProductTip());
 
         switch (key) {
             case "0":
@@ -82,8 +89,22 @@ public class Api {
         }
     }
 
-    public static void userApi() {
-        String key = OutAndInput(getUserTip());
+    public static void userProductApi() {
+        String key = OutAndInput(getUserProductTip());
+
+        switch (key) {
+            case "0":
+                break;
+            case "1":
+                ProductController.buyProduct();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public static void manageUserApi() {
+        String key = OutAndInput(getManageUserTip());
 
         switch (key) {
             case "0":

@@ -9,7 +9,7 @@ import java.util.Map;
 
 import models.Boss;
 import models.Customer;
-import models.User;
+import models.abstracts.User;
 
 public class UserController {
 

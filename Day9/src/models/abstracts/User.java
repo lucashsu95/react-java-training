@@ -1,8 +1,6 @@
-package models;
+package models.abstracts;
 
-import store.Store;
-
-public class User {
+public abstract class User {
     private String username;
     private String password;
     private String role;
@@ -26,7 +24,5 @@ public class User {
         return role;
     }
 
-    public String toPayload() {
-        return "這是抽像類別";
-    }
+    public abstract String toPayload();
 }
