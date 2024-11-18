@@ -4,12 +4,12 @@ import models.abstracts.Payment;
 
 public class LinePay extends Payment {
 
-    public LinePay(String name, int discount) {
-        super(name, discount);
+    public LinePay(float discount) {
+        super("Line Pay", discount);
     }
 
     public float pay(float price) {
-        float discountedPrice = price * (1 - (getDiscount() / 100.0f));
+        float discountedPrice = price * getDiscount();
         return Math.round(discountedPrice);
     }
 }

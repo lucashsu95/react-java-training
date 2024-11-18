@@ -26,13 +26,13 @@ public class Api {
                 AuthController.login();
                 return true;
             case "2":
-                AuthController.logout();
+                AuthController.signUp();
                 return true;
             case "3":
                 infomationApi();
                 return true;
             case "4":
-                AuthController.signUp();
+                AuthController.logout();
                 return true;
             case "5":
                 if (currentUser.get("role") == "老闆") {
@@ -44,6 +44,8 @@ public class Api {
             case "6":
                 if (currentUser.get("role") == "老闆") {
                     manageUserApi();
+                } else {
+                    UserController.viewRecord();
                 }
                 return true;
             default:
@@ -119,4 +121,5 @@ public class Api {
                 break;
         }
     }
+
 }

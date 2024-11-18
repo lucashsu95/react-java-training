@@ -4,6 +4,7 @@ import static lib.Const.getPaymentTip;
 import static lib.Functions.OutAndInput;
 import static store.Store.products;
 
+import lib.Functions;
 import models.Product;
 import models.abstracts.Payment;
 
@@ -65,10 +66,17 @@ public class ProductController {
                     product.setAmount(product.getAmount() - amount);
                     System.out.println("輸入付款方式：");
                     String usePayment = OutAndInput(getPaymentTip());
-                    Payment currentPayment = Payment.createPayment(usePayment);
-
+                    Payment currentPayment = Functions.createPayment(usePayment);
+                    if(currentPayment == null) {
+                        System.out.println("找不到付款方式");
+                        return;
+                    }
+                    
                     float price = product.getPrice() * amount;
                     float discountedPrice = currentPayment.pay(price);
+
+                    System.out.println("總價: " + price);
+                    System.out.println("使用 " + currentPayment.getName() + " 付款");
                     System.out.println("原價: " + price + " 折扣後價格: " + discountedPrice);
                     System.out.println("購買成功");
                     return;

@@ -18,6 +18,10 @@ public class UserController {
             System.out.println(user.toPayload());
         }
     }
+    
+    public static void viewRecord() {
+        System.out.println("查看購買紀錄 ~ 功能尚未實作 ~ 敬請期待");
+    }
 
     public static void addUser() {
         String username = OutAndInput("輸入帳號：");

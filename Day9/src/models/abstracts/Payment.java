@@ -1,13 +1,10 @@
 package models.abstracts;
 
-import models.ApplePay;
-import models.LinePay;
-
 public abstract class Payment {
     private String name;
-    private int discount;
+    private float discount;
 
-    public Payment(String name, int discount) {
+    public Payment(String name, float discount) {
         this.name = name;
         this.discount = discount;
     }
@@ -20,23 +17,12 @@ public abstract class Payment {
         this.name = name;
     }
 
-    public int getDiscount() {
+    public float getDiscount() {
         return discount;
     }
 
     public void setDiscount(int discount) {
         this.discount = discount;
-    }
-
-    public static Payment createPayment(String className) {
-        switch (className) {
-            case "1":
-                return new LinePay("Line Pay", 10);
-            case "0":
-                return new ApplePay("Apple Pay", 20);
-            default:
-                return null;
-        }
     }
 
     public abstract float pay(float price);

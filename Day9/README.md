@@ -7,7 +7,7 @@
 ## How to Start ?
 
 ### 編譯
-在`day9/src/`
+在`React-SpringBoot-training/Day9/src/`
 ```bash
 javac -d out -encoding UTF-8 Main.java
 ```
@@ -21,7 +21,7 @@ java -cp out Main
 ## Feature
 
 - [x] 結束程式
-- [ ] 確認是否登入 check token
+- [x] 確認是否登入 check token
 - [ ] 確認是否有權限
 - is Boss
   - 使用者CURD
@@ -31,21 +31,18 @@ java -cp out Main
     - [ ] 刪除
   - [x] 商品CURD
 - is Customer
-  - [ ] 購買商品
+  - [x] 購買商品
   - [ ] 購買歷史記錄
-  - [ ] 購買Product
-    - [ ] 購買歷史記錄
 - [x] 登入/登出
 - [x] 資訊查詢
   - [x] 列出所有商品列表
   - [x] 顯示目前活動優惠資訊
 - Card 變成抽象
-  - [ ] 子類是Apple Pay、LINE Pay，可以有不同折扣
+  - [x] 子類是ApplePay、LINEPay，可以有不同折扣
 
 ## Controller
 
-- UserController
-- ProductController
+- 處理邏輯
 
 ## Store
 

@@ -4,12 +4,12 @@ import models.abstracts.Payment;
 
 public class ApplePay extends Payment {
 
-    public ApplePay(String name, int discount) {
-        super(name, discount);
+    public ApplePay(float discount) {
+        super("ApplyPay", discount);
     }
 
     public float pay(float price) {
-        float discountedPrice = price * (1 - (getDiscount() / 100.0f));
+        float discountedPrice = price * getDiscount();
         return Math.round(discountedPrice);
     }
 }

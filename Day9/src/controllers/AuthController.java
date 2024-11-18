@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import models.Customer;
+import models.abstracts.User;
 import store.Store;
 
 import static store.Store.currentUser;
@@ -19,24 +20,39 @@ public class AuthController {
         return currentUser.get("role").equals("老闆");
     }
 
+    public static User checkHasUser(String username) {
+        for (int i = 0; i < Store.users.size(); i++) {
+            if (Store.users.get(i).getUsername().equals(username)) {
+                return Store.users.get(i);
+            }
+        }
+        return null;
+    }
+
     public static void login() {
         String username = OutAndInput("輸入帳號：");
+        User user = checkHasUser(username);
+        if(user == null){
+            System.out.println("帳號不存在");
+            return;
+        }
         String password = OutAndInput("輸入密碼：");
-        for (int i = 0; i < Store.users.size(); i++) {
-            if (Store.users.get(i).getUsername().equals(username)
-                    && Store.users.get(i).getPassword().equals(password)) {
-                currentUser.put("username", username);
-                currentUser.put("role", Store.users.get(i).getRole());
-                currentUser.put("token", "token");
-                System.out.println("登入成功");
-                return;
-            }
+        if (user.getPassword().equals(password)) {
+            currentUser.put("username", username);
+            currentUser.put("role", user.getRole());
+            currentUser.put("token", "token");
+            System.out.println("登入成功");
+            return;
         }
         System.out.println("登入失敗");
     }
 
     public static void signUp() {
         String username = OutAndInput("輸入帳號：");
+        if (checkHasUser(username) != null) {
+            System.out.println("帳號已存在");
+            return;
+        }
         String password = OutAndInput("輸入密碼：");
 
         Map<String, String> credentials = new HashMap<>();

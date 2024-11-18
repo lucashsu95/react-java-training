@@ -16,9 +16,10 @@ public class Const {
                 displayString += "\n- 6:管理使用者";
             } else if (Store.currentUser.get("role").equals("顧客")) {
                 displayString += "\n- 5:購買商品";
+                displayString += "\n- 6:查看購買記錄";
             }
         }
-        return displayString + "\n";
+        return "\n" + displayString + "\n";
     }
 
     public static String getManageProductTip() {
@@ -50,10 +51,10 @@ public class Const {
     }
 
     public static String getPaymentTip() {
-        String displayString = "# 可用動作：\n- 0:返回上一頁" + //
-                "\n- 1:現金" + //
-                "\n- 2:Line Pay付款" + //
-                "\n- 3:Apple Pay付款";
+        String displayString = "# 可用動作：" + //
+                "\n- 0:現金" + //
+                "\n- 1:Line Pay付款" + //
+                "\n- 2:Apple Pay付款";
         return displayString + "\n";
     }
 
