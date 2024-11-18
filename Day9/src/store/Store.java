@@ -17,7 +17,4 @@ public class Store {
             put("token", null);
         }
     };
-
-    public class users {
-    }
 }

@@ -1,7 +1,6 @@
 package routes;
 
 import static lib.Functions.*;
-import static store.Store.currentUser;
 import static lib.Const.*;
 
 import controllers.UserController;
@@ -9,6 +8,7 @@ import controllers.AuthController;
 import controllers.ProductController;
 
 public class Api {
+
     public static void main() {
         boolean action = true;
         while (action) {
@@ -26,7 +26,7 @@ public class Api {
                 AuthController.login();
                 return true;
             case "2":
-                AuthController.signUp();
+                UserController.signUp();
                 return true;
             case "3":
                 infomationApi();
@@ -35,18 +35,16 @@ public class Api {
                 AuthController.logout();
                 return true;
             case "5":
-                if (currentUser.get("role") == "老闆") {
-                    manageProductApi();
-                } else {
-                    userProductApi();
-                }
+                manageProductApi();
                 return true;
             case "6":
-                if (currentUser.get("role") == "老闆") {
-                    manageUserApi();
-                } else {
-                    UserController.viewRecord();
-                }
+                manageUserApi();
+                return true;
+            case "7":
+                userProductApi();
+                return true;
+            case "8":
+                UserController.viewRecord();
                 return true;
             default:
                 break;
@@ -72,8 +70,11 @@ public class Api {
     }
 
     public static void manageProductApi() {
-        String key = OutAndInput(getManageProductTip());
+        if (!AuthController.checkPermission()) {
+            return;
+        }
 
+        String key = OutAndInput(getManageProductTip());
         switch (key) {
             case "0":
                 break;
@@ -91,23 +92,11 @@ public class Api {
         }
     }
 
-    public static void userProductApi() {
-        String key = OutAndInput(getUserProductTip());
-
-        switch (key) {
-            case "0":
-                break;
-            case "1":
-                ProductController.buyProduct();
-                break;
-            default:
-                break;
-        }
-    }
-
     public static void manageUserApi() {
+        if (!AuthController.checkPermission()) {
+            return;
+        }
         String key = OutAndInput(getManageUserTip());
-
         switch (key) {
             case "0":
                 break;
@@ -116,6 +105,20 @@ public class Api {
                 break;
             case "2":
                 UserController.addUser();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public static void userProductApi() {
+        String key = OutAndInput(getUserProductTip());
+
+        switch (key) {
+            case "0":
+                break;
+            case "1":
+                ProductController.buyProduct();
                 break;
             default:
                 break;

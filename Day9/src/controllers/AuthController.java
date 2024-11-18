@@ -1,9 +1,5 @@
 package controllers;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import models.Customer;
 import models.abstracts.User;
 import store.Store;
 
@@ -11,13 +7,19 @@ import static store.Store.currentUser;
 import static lib.Functions.OutAndInput;
 
 public class AuthController {
+    // middleware Start
+
     public static boolean checkLogin() {
         return !(Store.currentUser.get("token") == null);
-        // 時間不足，未實作token機制
     }
 
     public static boolean checkPermission() {
-        return currentUser.get("role").equals("老闆");
+        boolean hasPermission = currentUser.get("role").equals("老闆");
+        if (!hasPermission) {
+            System.out.println("權限不足");
+            return false;
+        }
+        return true;
     }
 
     public static User checkHasUser(String username) {
@@ -26,14 +28,15 @@ public class AuthController {
                 return Store.users.get(i);
             }
         }
+        System.out.println("帳號不存在");
         return null;
     }
+    // middleware End
 
     public static void login() {
         String username = OutAndInput("輸入帳號：");
         User user = checkHasUser(username);
-        if(user == null){
-            System.out.println("帳號不存在");
+        if (user == null) {
             return;
         }
         String password = OutAndInput("輸入密碼：");
@@ -45,22 +48,6 @@ public class AuthController {
             return;
         }
         System.out.println("登入失敗");
-    }
-
-    public static void signUp() {
-        String username = OutAndInput("輸入帳號：");
-        if (checkHasUser(username) != null) {
-            System.out.println("帳號已存在");
-            return;
-        }
-        String password = OutAndInput("輸入密碼：");
-
-        Map<String, String> credentials = new HashMap<>();
-        credentials.put("username", username);
-        credentials.put("password", password);
-
-        Customer.createCustomer(credentials);
-        System.out.println("新增使用者成功");
     }
 
     public static void logout() {

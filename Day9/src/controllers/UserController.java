@@ -18,7 +18,7 @@ public class UserController {
             System.out.println(user.toPayload());
         }
     }
-    
+
     public static void viewRecord() {
         System.out.println("查看購買紀錄 ~ 功能尚未實作 ~ 敬請期待");
     }
@@ -37,6 +37,23 @@ public class UserController {
         } else if (role.equals("2")) {
             Customer.createCustomer(credentials);
         }
+        System.out.println("新增使用者成功");
+    }
+
+    public static void signUp() {
+        AuthController auth = new AuthController();
+        String username = OutAndInput("輸入帳號：");
+        if (auth.checkHasUser(username) != null) {
+            System.out.println("帳號已存在");
+            return;
+        }
+        String password = OutAndInput("輸入密碼：");
+
+        Map<String, String> credentials = new HashMap<>();
+        credentials.put("username", username);
+        credentials.put("password", password);
+
+        Customer.createCustomer(credentials);
         System.out.println("新增使用者成功");
     }
 }

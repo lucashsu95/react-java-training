@@ -1,6 +1,6 @@
 package models.abstracts;
 
-public abstract class User {
+public abstract class User implements UserInterface {
     private String username;
     private String password;
     private String role;
@@ -11,7 +11,6 @@ public abstract class User {
         this.role = role;
     }
 
-    // getter methods
     public String getUsername() {
         return username;
     }

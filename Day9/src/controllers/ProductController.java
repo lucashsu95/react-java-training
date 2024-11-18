@@ -9,6 +9,18 @@ import models.Product;
 import models.abstracts.Payment;
 
 public class ProductController {
+    // middleware Start
+    public static Product checkHasProduct(String productName) {
+        for (Product product : products) {
+            if (product.getName().equals(productName)) {
+                return product;
+            }
+        }
+        System.out.println("找不到商品");
+        return null;
+    }
+    // middleware End
+
     public static void printProduct() {
         String displayString = "商品資訊：\n";
         for (Product product : products) {
@@ -30,63 +42,61 @@ public class ProductController {
     public static void updateProduct() {
         printProduct();
         String name = OutAndInput("輸入想要修改的商品名稱：");
-        for (Product product : products) {
-            if (product.getName().equals(name)) {
-                int amount = Integer.parseInt(OutAndInput("輸入商品庫存："));
-                int price = Integer.parseInt(OutAndInput("輸入商品價格："));
-                product.setAmount(amount);
-                product.setPrice(price);
-                System.out.println("修改商品成功");
-                return;
-            }
+        Product product = checkHasProduct(name);
+        if (product == null) {
+            return;
         }
-        System.out.println("找不到商品");
+        int amount = Integer.parseInt(OutAndInput("輸入商品庫存："));
+        int price = Integer.parseInt(OutAndInput("輸入商品價格："));
+        product.setAmount(amount);
+        product.setPrice(price);
+        System.out.println("修改商品成功");
+
     }
 
     public static void deleteProduct() {
         printProduct();
         String name = OutAndInput("輸入商品名稱：");
-        for (Product product : products) {
-            if (product.getName().equals(name)) {
-                products.remove(product);
-                System.out.println("刪除商品成功");
-                return;
-            }
+        Product product = checkHasProduct(name);
+        if (product == null) {
+            return;
         }
-        System.out.println("找不到商品");
+        products.remove(product);
+        System.out.println("刪除商品成功");
+
     }
 
     public static void buyProduct() {
         printProduct();
         String name = OutAndInput("輸入商品名稱：");
-        for (Product product : products) {
-            if (product.getName().equals(name)) {
-                int amount = Integer.parseInt(OutAndInput("輸入購買數量："));
-                if (product.getAmount() >= amount) {
-                    product.setAmount(product.getAmount() - amount);
-                    System.out.println("輸入付款方式：");
-                    String usePayment = OutAndInput(getPaymentTip());
-                    Payment currentPayment = Functions.createPayment(usePayment);
-                    if(currentPayment == null) {
-                        System.out.println("找不到付款方式");
-                        return;
-                    }
-                    
-                    float price = product.getPrice() * amount;
-                    float discountedPrice = currentPayment.pay(price);
-
-                    System.out.println("總價: " + price);
-                    System.out.println("使用 " + currentPayment.getName() + " 付款");
-                    System.out.println("原價: " + price + " 折扣後價格: " + discountedPrice);
-                    System.out.println("購買成功");
-                    return;
-                } else {
-                    System.out.println("庫存不足");
-                    return;
-                }
-            }
+        Product product = checkHasProduct(name);
+        if (product == null) {
+            return;
         }
-        System.out.println("找不到商品");
+
+        int amount = Integer.parseInt(OutAndInput("輸入購買數量："));
+        if (product.getAmount() >= amount) {
+            product.setAmount(product.getAmount() - amount);
+            System.out.println("輸入付款方式：");
+            String usePayment = OutAndInput(getPaymentTip());
+            Payment currentPayment = Functions.createPayment(usePayment);
+            if (currentPayment == null) {
+                System.out.println("找不到付款方式");
+                return;
+            }
+
+            float price = product.getPrice() * amount;
+            float discountedPrice = currentPayment.pay(price);
+
+            System.out.println("總價: " + price);
+            System.out.println("使用 " + currentPayment.getName() + " 付款");
+            System.out.println("原價: " + price + " 折扣後價格: " + discountedPrice);
+            System.out.println("購買成功");
+            return;
+        } else {
+            System.out.println("庫存不足");
+            return;
+        }
     }
 
 }

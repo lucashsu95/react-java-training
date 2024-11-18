@@ -8,6 +8,7 @@ public class LinePay extends Payment {
         super("Line Pay", discount);
     }
 
+    @Override
     public float pay(float price) {
         float discountedPrice = price * getDiscount();
         return Math.round(discountedPrice);
