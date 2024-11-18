@@ -6,18 +6,10 @@ import store.Store;
 public class Const {
 
     public static String getMainTip() {
-        AuthController auth = new AuthController();
-        boolean hasLogin = auth.checkLogin();
         String displayString = "# 可用動作：\n- 0:結束程式\n";
-        if (hasLogin) {
+        if (AuthController.hasLogin()) {
             displayString += "- 3:資訊查詢\n- 4:登出";
-        } else {
-            displayString += "- 1:登入\n" + //
-                    "- 2:註冊帳號\n" + //
-                    "- 3:資訊查詢";
-        }
 
-        if (hasLogin) {
             if (Store.currentUser.get("role").equals("老闆")) {
                 displayString += "\n- 5:管理商品";
                 displayString += "\n- 6:管理使用者";
@@ -25,7 +17,12 @@ public class Const {
                 displayString += "\n- 7:購買商品";
                 displayString += "\n- 8:查看購買記錄";
             }
+        } else {
+            displayString += "- 1:登入\n" + //
+                    "- 2:註冊帳號\n" + //
+                    "- 3:資訊查詢";
         }
+
         return "\n" + displayString + "\n";
     }
 

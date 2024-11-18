@@ -9,7 +9,7 @@ import static lib.Functions.OutAndInput;
 public class AuthController {
     // middleware Start
 
-    public static boolean checkLogin() {
+    public static boolean hasLogin() {
         return !(Store.currentUser.get("token") == null);
     }
 
@@ -28,7 +28,6 @@ public class AuthController {
                 return Store.users.get(i);
             }
         }
-        System.out.println("帳號不存在");
         return null;
     }
     // middleware End
@@ -37,6 +36,7 @@ public class AuthController {
         String username = OutAndInput("輸入帳號：");
         User user = checkHasUser(username);
         if (user == null) {
+            System.out.println("帳號不存在");
             return;
         }
         String password = OutAndInput("輸入密碼：");
@@ -51,6 +51,10 @@ public class AuthController {
     }
 
     public static void logout() {
+        if (!hasLogin()) {
+            System.out.println("尚未登入");
+            return;
+        }
         currentUser.put("username", null);
         currentUser.put("role", null);
         currentUser.put("token", null);

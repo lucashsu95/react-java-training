@@ -41,9 +41,8 @@ public class UserController {
     }
 
     public static void signUp() {
-        AuthController auth = new AuthController();
         String username = OutAndInput("輸入帳號：");
-        if (auth.checkHasUser(username) != null) {
+        if (AuthController.checkHasUser(username) != null) {
             System.out.println("帳號已存在");
             return;
         }

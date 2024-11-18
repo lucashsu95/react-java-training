@@ -70,7 +70,12 @@ public class Api {
     }
 
     public static void manageProductApi() {
+        if (!AuthController.hasLogin()) {
+            System.out.println("請先登入");
+            return;
+        }
         if (!AuthController.checkPermission()) {
+            System.out.println("權限不足");
             return;
         }
 
@@ -93,7 +98,12 @@ public class Api {
     }
 
     public static void manageUserApi() {
+        if (!AuthController.hasLogin()) {
+            System.out.println("請先登入");
+            return;
+        }
         if (!AuthController.checkPermission()) {
+            System.out.println("權限不足");
             return;
         }
         String key = OutAndInput(getManageUserTip());
@@ -112,8 +122,12 @@ public class Api {
     }
 
     public static void userProductApi() {
-        String key = OutAndInput(getUserProductTip());
+        if (!AuthController.hasLogin()) {
+            System.out.println("請先登入");
+            return;
+        }
 
+        String key = OutAndInput(getUserProductTip());
         switch (key) {
             case "0":
                 break;
