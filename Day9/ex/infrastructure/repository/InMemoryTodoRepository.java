@@ -1,7 +1,7 @@
-package com.example.infrastructure.repository;
+package ex.infrastructure.repository;
 
-import com.example.domain.entity.Todo;
-import com.example.domain.repository.TodoRepository;
+import ex.domain.entity.Todo;
+import ex.domain.repository.TodoRepository;
 
 import java.util.ArrayList;
 import java.util.List;

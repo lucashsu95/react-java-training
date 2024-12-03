@@ -1,6 +1,6 @@
-package com.example.presenter;
+package ex.interfaces.presenter;
 
-import com.example.domain.entity.Todo;
+import ex.domain.entity.Todo;
 
 import java.util.List;
 

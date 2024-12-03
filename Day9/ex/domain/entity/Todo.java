@@ -1,4 +1,5 @@
-package com.example.domain.entity;
+
+package ex.domain.entity;
 
 public class Todo {
     private int id;

@@ -1,7 +1,8 @@
-package com.example.domain.usecase;
 
-import com.example.domain.entity.Todo;
-import com.example.domain.repository.TodoRepository;
+package ex.usecase;
+
+import ex.domain.entity.Todo;
+import ex.domain.repository.TodoRepository;
 
 import java.util.List;
 

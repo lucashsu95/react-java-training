@@ -1,8 +1,8 @@
-package com.example.controller;
+package ex.controller;
 
-import com.example.domain.entity.Todo;
-import com.example.domain.usecase.ListTodoUseCase;
-import com.example.presenter.TodoPresenter;
+import ex.domain.entity.Todo;
+import ex.usecase.ListTodoUseCase;
+import ex.interfaces.presenter.TodoPresenter;
 
 import java.util.List;
 

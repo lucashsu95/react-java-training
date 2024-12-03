@@ -1,9 +1,9 @@
-package com.example;
+package ex;
 
-import com.example.controller.TodoController;
-import com.example.domain.usecase.ListTodoUseCase;
-import com.example.infrastructure.repository.InMemoryTodoRepository;
-import com.example.presenter.TodoPresenter;
+import ex.controller.TodoController;
+import ex.usecase.ListTodoUseCase;
+import ex.infrastructure.repository.InMemoryTodoRepository;
+import ex.interfaces.presenter.TodoPresenter;
 
 public class Main {
     public static void main(String[] args) {
