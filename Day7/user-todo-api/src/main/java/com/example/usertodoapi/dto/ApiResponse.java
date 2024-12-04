@@ -1,6 +1,5 @@
 package com.example.usertodoapi.dto;
 
-import com.example.usertodoapi.model.Todo;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;

@@ -91,6 +91,11 @@
             <artifactId>mysql</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.30</version> <!-- 使用適合你數據庫版本的驅動 -->
+        </dependency>
     </dependencies>
 
     <build>

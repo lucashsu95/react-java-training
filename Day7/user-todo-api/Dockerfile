@@ -1,7 +1,14 @@
 FROM openjdk:17-jdk-slim
 
+RUN mkdir -p /app
+
 WORKDIR /app
 
-COPY target/user-todo-api-0.0.1-SNAPSHOT.jar app.jar
+VOLUME [ "/app" ]
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+COPY ./target/user-todo-api-0.0.1-SNAPSHOT.jar app.jar
+COPY *.sh .
+
+RUN chmod +x docker-entrypoint.sh
+
+ENTRYPOINT ["./docker-entrypoint.sh"]

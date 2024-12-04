@@ -1,6 +1,5 @@
 package com.example.usertodoapi.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
