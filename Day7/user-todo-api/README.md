@@ -1,5 +1,12 @@
 # User - Todo
 
+## How to Start
+```
+./mvnw clean package
+docker-compose build --no-cache
+docker-compose up -d
+```
+
 ## Response 回傳格式
 ```json
 {

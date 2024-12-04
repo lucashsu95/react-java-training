@@ -1,0 +1,38 @@
+services:
+  app:
+    container_name: 'user-todo-app'
+    image: user-todo-image
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/mydatabase?useUnicode=yes&characterEncoding=UTF-8
+      - SPRING_DATASOURCE_USERNAME=myuser
+      - SPRING_DATASOURCE_PASSWORD=secret
+    depends_on:
+      - db
+
+  db:
+    container_name: 'user-todo-db'
+    image: 'mariadb:10.4.32'
+    environment:
+      - 'MYSQL_DATABASE=mydatabase'
+      - 'MYSQL_ROOT_PASSWORD=1234'
+      - 'MYSQL_USER=myuser'
+      - 'MYSQL_PASSWORD=secret'
+    volumes:
+      - user-todo-db-data:/var/lib/mysql
+
+  phpmyadmin:
+    container_name: "user-todo-phpmyadmin"
+    image: "phpmyadmin:5.2.1"
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+volumes:
+  user-todo-db-data:
