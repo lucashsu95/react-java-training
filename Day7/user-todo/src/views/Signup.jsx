@@ -18,7 +18,7 @@ function Signup({ setPage }) {
       type: type.current.value,
     };
     api
-      .postUsers({ data: { payload } })
+      .postUsers({ data: { ...payload } })
       .then(() => {
         AlertDialog('success', '註冊成功');
         setPage('login');

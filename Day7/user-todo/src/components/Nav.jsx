@@ -15,7 +15,7 @@ export default function Nav({ setPage, currentUser, setCurrentUser }) {
 
   return (
     <nav className="flex justify-between px-10 py-4 bg-slate-600 text-white shadow-[2px_0_15px] shadow-indigo-300 items-center fixed w-full top-0">
-      <h1 className="h1 cursor-pointer" onClick={() => setPage('login')}>
+      <h1 className="text-2xl font-bold cursor-pointer" onClick={() => setPage('login')}>
         待辦事項管理系統
       </h1>
       {currentUser?.nickname && (
