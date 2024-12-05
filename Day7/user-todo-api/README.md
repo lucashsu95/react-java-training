@@ -31,56 +31,44 @@ docker-compose up -d
 增加了對管理員權限的檢查，確保只有授權用戶可以執行特定操作。
 
 
-## User
+## Feature
 
-### 新增 POST /api/users
-- 檢查是否有登入
-- 檢查是否有權限
-- 檢查email是否已存在
-
-### 修改 PUT /api/users/:id
-- 檢查是否有登入
-- 檢查是否有權限
-- 檢查使用者是否存在
-
-### 刪除 DELETE /api/users/:id
-- 檢查是否有登入
-- 檢查是否有權限
-- 檢查使用者是否存在
-
-### 使用者列表 GET /api/users
-
-### 登入 POST /api/users/login
-- 檢查帳號是否存在
-- 檢查密碼是否正確
-- 產生 JWT(access token)
-
-### 登出 POST /api/users/logout
-- 檢查是否有登入
-
-
-
-## Todo
-
-### 待辦事項列表 GET /api/todos
-- 檢查是否有登入
-- 只能看到自己的待辦事項
-
-### 新增 POST /api/todos
-- 檢查是否有登入
-
-### 修改 PUT /api/todos/:id
-- 檢查是否存在
-- 檢查是否有登入
-- 只能修改自己的待辦事項
-- 管理員可以修改所有待辦事項
-
-### 刪除 DELETE /api/todos/:id
-- 檢查是否存在
-- 檢查是否有登入
-- 只能刪除自己的待辦事項
-- 管理員可以刪除所有待辦事項
-
+- User
+  - 新增 POST /api/users
+    - 檢查是否有登入
+    - 檢查是否有權限
+    - 檢查email是否已存在
+  - 修改 PUT /api/users/:id
+    - 檢查是否有登入
+    - 檢查是否有權限
+    - 檢查使用者是否存在
+  - 刪除 DELETE /api/users/:id
+    - 檢查是否有登入
+    - 檢查是否有權限
+    - 檢查使用者是否存在
+  - 使用者列表 GET /api/users
+  - 登入 POST /api/users/login
+    - 檢查帳號是否存在
+    - 檢查密碼是否正確
+    - 產生 JWT(access token)
+  - 登出 POST /api/users/logout
+  - 檢查是否有登入
+- Todo
+  - 待辦事項列表 GET /api/todos
+    - 檢查是否有登入
+    - 只能看到自己的待辦事項
+  - 新增 POST /api/todos
+    - 檢查是否有登入
+  - 修改 PUT /api/todos/:id
+    - 檢查是否存在
+    - 檢查是否有登入
+    - 只能修改自己的待辦事項
+    - 管理員可以修改所有待辦事項
+  - 刪除 DELETE /api/todos/:id
+    - 檢查是否存在
+    - 檢查是否有登入
+    - 只能刪除自己的待辦事項
+    - 管理員可以刪除所有待辦事項
 
 
 ## 錯誤訊息

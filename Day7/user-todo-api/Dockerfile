@@ -9,6 +9,7 @@ VOLUME [ "/app" ]
 COPY ./target/user-todo-api-0.0.1-SNAPSHOT.jar app.jar
 COPY *.sh .
 
-RUN chmod +x docker-entrypoint.sh
+RUN sed -i -e 's/\r$//' /app/*.sh \ 
+    && chmod +x docker-entrypoint.sh
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "docker-entrypoint.sh"]
