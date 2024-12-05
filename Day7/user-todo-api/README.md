@@ -1,14 +1,21 @@
 # User - Todo
 
-## How to Start
-```
+## Local
+```bash
 ./mvnw clean install
 ./mvnw spring-boot:run
 ```
 
 ## Docker
+```bash
 docker-compose build --no-cache
 docker-compose up -d
+```
+
+## test
+```bash
+docker run -it --rm user-todo-image bash
+```
 
 ## Response 回傳格式
 ```json

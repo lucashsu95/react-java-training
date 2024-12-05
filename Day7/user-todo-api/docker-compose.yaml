@@ -1,16 +1,16 @@
 services:
-  app:
-    container_name: 'user-todo-app'
-    image: user-todo-image
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-    volumes:
-      - ./src:/app/src
+  # app:
+  #   container_name: 'user-todo-app'
+  #   image: user-todo-image
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - ./src:/app/src
 
   db:
     container_name: 'user-todo-db'
@@ -25,6 +25,8 @@ services:
     command:
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_general_ci
+    ports:
+      - "3306:3306"
 
   phpmyadmin:
     container_name: "user-todo-phpmyadmin"

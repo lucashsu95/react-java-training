@@ -28,7 +28,7 @@ const Todo = ({ todo, setTodos, setIsEdit, titleRef, contentRef, setEditId, rese
             id={todo.id}
             className="mr-4 w-4 h-4 peer accent-pink-500"
             onChange={updateTodoComputed}
-            checked={completed}
+            checked={completed || false}
           />
           <label htmlFor={todo.id} className="peer-checked:line-through">
             <h3 className="h3">{title}</h3>

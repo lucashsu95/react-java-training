@@ -25,7 +25,6 @@ function User({ user, setUsers }) {
 
   return (
     <tr key={id} className="border-b border-gray-200 odd:bg-gray-200 hover:bg-gray-300 text-center">
-      <td className="py-4 px-6">{id}</td>
       <td className="py-4 px-6">
         {isEdit ? (
           <input type="text" className="px-2 py-1 rounded-md shadow w-full" defaultValue={nickname} ref={nicknameRef} />
@@ -33,7 +32,7 @@ function User({ user, setUsers }) {
           nickname
         )}
       </td>
-      <td className="py-4 px-6">
+      <td className="py-4 px-6 min-w-[200px]">
         {isEdit ? (
           <input type="text" className="px-2 py-1 rounded-md shadow w-full" defaultValue={email} ref={emailRef} />
         ) : (
@@ -80,11 +79,10 @@ export default function UserList() {
       <table className="w-[800px] mx-auto border">
         <thead>
           <tr className="bg-gray-300">
-            <th className="w-1/12">ID</th>
-            <th className="w-3/12">Nickname</th>
-            <th className="w-3/12">Email</th>
-            <th className="w-2/12">Type</th>
-            <th className="w-3/12">Action</th>
+            <th className="w-3/12">暱稱</th>
+            <th className="w-5/12">電子郵件</th>
+            <th className="w-1/12">角色</th>
+            <th className="w-3/12">操作</th>
           </tr>
         </thead>
         <tbody>
