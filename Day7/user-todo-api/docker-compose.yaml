@@ -2,11 +2,15 @@ services:
   app:
     container_name: 'user-todo-app'
     image: user-todo-image
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     depends_on:
       - db
+    volumes:
+      - ./src:/app/src
 
   db:
     container_name: 'user-todo-db'

@@ -2,10 +2,13 @@
 
 ## How to Start
 ```
-./mvnw clean package
+./mvnw clean install
+./mvnw spring-boot:run
+```
+
+## Docker
 docker-compose build --no-cache
 docker-compose up -d
-```
 
 ## Response 回傳格式
 ```json

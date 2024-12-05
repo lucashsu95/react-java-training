@@ -8,6 +8,9 @@ import com.example.usertodoapi.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,20 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("/test")
+    public ResponseEntity<Map<String, String>> test() {
+        Map<String, String> response = new HashMap<>();
+        response.put("success", "this is test");
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/test1")
+    public ResponseEntity<Map<String, String>> test1() {
+        Map<String, String> response = new HashMap<>();
+        response.put("success", "this is test1");
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping
     public ResponseEntity<?> index() {

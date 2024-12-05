@@ -1,15 +1,24 @@
-FROM openjdk:17-jdk-slim
-
-RUN mkdir -p /app
+FROM maven:3.9.6 AS build
 
 WORKDIR /app
 
-VOLUME [ "/app" ]
+COPY pom.xml ./
+COPY mvnw ./
+COPY mvnw.cmd ./
+COPY .mvn/ .mvn
+COPY ./src/ ./src
 
-COPY ./target/user-todo-api-0.0.1-SNAPSHOT.jar app.jar
+
+RUN chmod +x mvnw
+
+FROM openjdk:17
+
+WORKDIR /app
+
+COPY --from=build /app /app
+
 COPY *.sh .
 
-# RUN sed -i -e 's/\r$//' /app/*.sh
 RUN chmod +x docker-entrypoint.sh
 
 ENTRYPOINT ["/bin/sh", "docker-entrypoint.sh"]

@@ -1,0 +1,26 @@
+FROM maven:3.9.6 AS buildstage
+
+WORKDIR /app
+
+# 複製 pom.xml 和 mvnw 文件
+COPY pom.xml .
+COPY mvnw .
+COPY mvnw.cmd .
+COPY .mvn .
+COPY src .
+
+
+# 確保 mvnw 可執行
+RUN chmod +x mvnw
+
+# 執行 Maven 包裝
+RUN ./mvnw clean package -Dmaven.test.skip=true
+
+FROM openjdk:17
+COPY --from=buildstage /app/target/*.jar app.jar
+
+COPY *.sh .
+
+RUN chmod +x docker-entrypoint.sh
+
+ENTRYPOINT ["/bin/sh", "docker-entrypoint.sh"]
