@@ -75,7 +75,7 @@ export default function UserList() {
   }, []);
 
   return (
-    <div className="wrap">
+    <div className="wrap mt-32">
       <h2 className="text-center h2">User List</h2>
       <table className="w-[800px] mx-auto border">
         <thead>

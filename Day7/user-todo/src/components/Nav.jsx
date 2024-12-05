@@ -21,9 +21,7 @@ export default function Nav({ setPage, currentUser, setCurrentUser }) {
       {currentUser?.nickname && (
         <>
           <ul className="flex items-center gap-5">
-            <li>
-              <a>{currentUser?.nickname}</a>
-            </li>
+            {currentUser?.nickname && <li>Hello {currentUser.nickname}!</li>}
             <li>
               <a onClick={() => setPage('todos')}>待辦事項管理</a>
             </li>

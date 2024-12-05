@@ -9,7 +9,7 @@ const Todo = ({ todo, setTodos, setIsEdit, titleRef, contentRef, setEditId, rese
 
   const updateTodoComputed = () => {
     api
-      .putTodo({ data: { completed: completed }, routeParams: { id } })
+      .putTodo({ data: { completed: !completed }, routeParams: { id } })
       .then((res) => {
         const data = res.data;
         setTodos((prev) => prev.map((todo) => (todo.id === id ? data.data : todo)));
