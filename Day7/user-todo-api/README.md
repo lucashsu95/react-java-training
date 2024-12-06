@@ -1,18 +1,14 @@
 # User - Todo
 
-## Local
+
+## How to Start
 ```bash
+docker-compose up -d
 ./mvnw clean install
 ./mvnw spring-boot:run
 ```
 
-## Docker
-```bash
-docker-compose build --no-cache
-docker-compose up -d
-```
-
-## test
+### test
 ```bash
 docker run -it --rm user-todo-image bash
 ```
