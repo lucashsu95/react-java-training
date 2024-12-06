@@ -1,5 +1,7 @@
 # Day6 - React + Spring Boot + MySQL - users 模組
 
+這個失敗了!!! 不要使用
+
 `users.sql`檔 放在`/src/main/resources/static/files/`裡
 
 ## 清理並重建專案
