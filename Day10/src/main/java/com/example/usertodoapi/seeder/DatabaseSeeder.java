@@ -7,14 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatabaseSeeder implements CommandLineRunner {
 
+    private final UserSeeder userSeeder;
+
     @Autowired
-    private UserSeeder userSeeder;
-    @Autowired
-    private TodoSeeder todoSeeder;
+    public DatabaseSeeder(UserSeeder userSeeder) {
+        this.userSeeder = userSeeder;
+    }
 
     @Override
     public void run(String... args) throws Exception {
         userSeeder.seedUsers();
-        todoSeeder.seedTodos();
     }
 }

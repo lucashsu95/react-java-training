@@ -1,4 +1,4 @@
-package com.example.usertodoapi.model;
+package com.example.usertodoapi.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -57,5 +57,15 @@ public class User {
     public enum UserType {
         USER,
         ADMIN
+    }
+
+    public User() {
+    }
+
+    public User(String email, String passwordHash, String nickname, UserType type) {
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.nickname = nickname;
+        this.type = type;
     }
 }

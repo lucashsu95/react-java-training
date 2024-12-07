@@ -1,52 +1,54 @@
 package com.example.usertodoapi.controller;
 
-import com.example.usertodoapi.dto.UserLoginInputs;
-import com.example.usertodoapi.dto.UserWithInsert;
-import com.example.usertodoapi.dto.UserWithUpdate;
-import com.example.usertodoapi.service.UserService;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.usertodoapi.usecase.ListUserUseCase;
+import com.example.usertodoapi.domain.entity.User;
+import com.example.usertodoapi.interfaces.presenter.UserPresenter;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-
+    private final ListUserUseCase listUserUseCase;
+    private final UserPresenter userPresenter;
+    
     @Autowired
-    private UserService userService;
+    public UserController(ListUserUseCase listUserUseCase, UserPresenter userPresenter) {
+        this.listUserUseCase = listUserUseCase;
+        this.userPresenter = userPresenter;
+    }
 
     @GetMapping
-    public ResponseEntity<?> index() {
-        return userService.index();
+    public UserPresenter.ListUserResponse getAll() {
+        try {
+            List<User> users = listUserUseCase.execute();
+            return userPresenter.success(users);
+        } catch (Exception e) {
+            return userPresenter.error(e.getMessage());
+        }
     }
 
-    @PostMapping
-    public ResponseEntity<?> insert(@Valid @RequestBody UserWithInsert user) {
-        return userService.insert(user);
-    }
+    // @GetMapping("/{id}")
+    // public String getById(@PathVariable int id) {
+    //     return "Get user by id: " + id;
+    // }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody UserWithUpdate user,
-            HttpServletRequest request) {
-        return userService.update(id, user, request);
-    }
+    // @PostMapping
+    // public String create() {
+    //     return "Create user";
+    // }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> destroy(@PathVariable Long id, HttpServletRequest request) {
-        return userService.destroy(id, request);
-    }
+    // @PutMapping("/{id}")
+    // public String update(@PathVariable int id) {
+    //     return "Update user by id: " + id;
+    // }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody UserLoginInputs user) {
-        return userService.login(user);
-    }
+    // @DeleteMapping("/{id}")
+    // public String delete(@PathVariable int id) {
+    //     return "Delete user by id: " + id;
+    // }
 
-    @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request) {
-        return userService.logout(request);
-    }
 }
