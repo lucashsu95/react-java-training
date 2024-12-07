@@ -1,43 +1,52 @@
-// package com.example.usertodoapi.infrastructure.repository;
+package com.example.usertodoapi.infrastructure.repository;
 
-// import java.util.ArrayList;
-// import java.util.List;
-// import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-// import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Repository;
 
-// import com.example.usertodoapi.domain.entity.User;
-// import com.example.usertodoapi.domain.repository.UserRepository;
+import com.example.usertodoapi.domain.entity.User;
+import com.example.usertodoapi.domain.repository.UserRepository;
 
-// @Repository
-// public class InMemoryUserRepository implements UserRepository {
-//     private final List<User> users = new ArrayList<>();
+import org.springframework.beans.factory.annotation.Autowired;
 
-//     @Override
-//     public List<User> getAll() {
-//         return new ArrayList<>(users);
-//     }
+@Repository
+public class InMemoryUserRepository implements UserRepository {
+    private final UserJpaRepository db;
 
-//     @Override
-//     public Optional<User> getById(int id) {
-//         return users.stream().filter(user -> user.getId() == id).findFirst();
-//     }
+    @Autowired
+    public InMemoryUserRepository(UserJpaRepository db) {
+        this.db = db;
+    }
 
-//     @Override
-//     public void create(User user) {
-//         users.add(user);
-//     }
+    @Override
+    public List<User> getAll() {
+        return new ArrayList<>(db.findAll());
+    }
 
-//     @Override
-//     public void update(int id, User user) {
-//         getById(id).ifPresent(existingUser -> {
-//             existingUser.setNickname(user.getNickname());
-//             existingUser.setEmail(user.getEmail()); 
-//         });
-//     }
+    @Override
+    public Optional<User> getById(int id) {
+        return db.findById(id);
+    }
 
-//     @Override
-//     public void delete(int id) {
-//         users.removeIf(user -> user.getId() == id);
-//     }
-// }
+    @Override
+    public void create(User user) {
+        db.save(user);
+    }
+
+    @Override
+    public void update(int id, User user) {
+        // getById(id).ifPresent(existingUser -> {
+        // existingUser.setNickname(user.getNickname());
+        // existingUser.setEmail(user.getEmail());
+        // });
+        db.save(user);
+    }
+
+    @Override
+    public void delete(int id) {
+        db.deleteById(id);
+        // users.removeIf(user -> user.getId() == id);
+    }
+}

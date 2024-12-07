@@ -1,16 +1,18 @@
 package com.example.usertodoapi.domain.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+import java.util.Optional;
+
 import com.example.usertodoapi.domain.entity.User;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    // List<User> getAll();
+public interface UserRepository {
+    List<User> getAll();
 
-    // Optional<User> getById(int id);
+    Optional<User> getById(int id);
 
-    // void create(User user);
+    void create(User user);
 
-    // void update(int id, User user);
+    void update(int id, User user);
 
-    // void delete(int id);
+    void delete(int id);
 }

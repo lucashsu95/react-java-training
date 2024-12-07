@@ -14,7 +14,7 @@ import com.example.usertodoapi.interfaces.presenter.UserPresenter;
 public class UserController {
     private final ListUserUseCase listUserUseCase;
     private final UserPresenter userPresenter;
-    
+
     @Autowired
     public UserController(ListUserUseCase listUserUseCase, UserPresenter userPresenter) {
         this.listUserUseCase = listUserUseCase;
@@ -33,22 +33,22 @@ public class UserController {
 
     // @GetMapping("/{id}")
     // public String getById(@PathVariable int id) {
-    //     return "Get user by id: " + id;
+    // return "Get user by id: " + id;
     // }
 
     // @PostMapping
     // public String create() {
-    //     return "Create user";
+    // return "Create user";
     // }
 
     // @PutMapping("/{id}")
     // public String update(@PathVariable int id) {
-    //     return "Update user by id: " + id;
+    // return "Update user by id: " + id;
     // }
 
     // @DeleteMapping("/{id}")
     // public String delete(@PathVariable int id) {
-    //     return "Delete user by id: " + id;
+    // return "Delete user by id: " + id;
     // }
 
 }

@@ -19,6 +19,6 @@ public class ListUserUseCase {
     }
 
     public List<User> execute() {
-        return repository.findAll();
+        return repository.getAll();
     }
 }

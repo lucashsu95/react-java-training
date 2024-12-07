@@ -5,16 +5,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.example.usertodoapi.domain.entity.User;
-import com.example.usertodoapi.domain.repository.UserRepository;
+import com.example.usertodoapi.infrastructure.repository.UserJpaRepository;
 
 @Component
 public class UserSeeder {
 
-    private final UserRepository userRepository;
+    private final UserJpaRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserSeeder(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserSeeder(UserJpaRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
