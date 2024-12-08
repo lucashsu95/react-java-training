@@ -1,4 +1,4 @@
-package ex.interfaces.presenter;
+package ex.interfaces.presenter.todo;
 
 import ex.interfaces.presenter.todo.json.CreateTodoJsonPresenter;
 import ex.interfaces.presenter.todo.json.ListTodoJsonPresenter;

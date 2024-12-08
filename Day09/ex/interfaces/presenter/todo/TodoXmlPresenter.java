@@ -1,4 +1,4 @@
-package ex.interfaces.presenter;
+package ex.interfaces.presenter.todo;
 
 import ex.interfaces.presenter.todo.xml.CreateTodoXmlPresenter;
 import ex.interfaces.presenter.todo.xml.ListTodoXmlPresenter;

@@ -1,7 +1,7 @@
 package ex.controller;
 
 import ex.domain.entity.Todo;
-import ex.interfaces.presenter.TodoJsonPresenter;
+import ex.interfaces.presenter.todo.TodoJsonPresenter;
 // import ex.interfaces.presenter.TodoXmlPresenter;
 import ex.usecase.TodoUsecase;
 import ex.usecase.todo.dto.ListTodoOutput;
