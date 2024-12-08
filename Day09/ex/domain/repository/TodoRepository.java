@@ -1,7 +1,7 @@
 package ex.domain.repository;
 
 import ex.domain.entity.Todo;
-import ex.usecase.todo.ListTodoOutput;
+import ex.usecase.todo.dto.ListTodoOutput;
 
 import java.util.Optional;
 
@@ -12,7 +12,7 @@ public interface TodoRepository {
 
     Todo create(Todo todo);
 
-    void update(int id, Todo todo);
+    Todo update(int id, Todo todo);
 
-    void delete(int id);
+    Boolean delete(int id);
 }

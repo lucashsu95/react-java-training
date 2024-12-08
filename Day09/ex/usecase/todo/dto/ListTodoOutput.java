@@ -1,4 +1,4 @@
-package ex.usecase.todo;
+package ex.usecase.todo.dto;
 
 import java.util.ArrayList;
 import java.util.List;

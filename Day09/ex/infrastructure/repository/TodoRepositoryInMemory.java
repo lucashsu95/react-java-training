@@ -2,7 +2,7 @@ package ex.infrastructure.repository;
 
 import ex.domain.entity.Todo;
 import ex.domain.repository.TodoRepository;
-import ex.usecase.todo.ListTodoOutput;
+import ex.usecase.todo.dto.ListTodoOutput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,15 +30,17 @@ public class TodoRepositoryInMemory implements TodoRepository {
     }
 
     @Override
-    public void update(int id, Todo todo) {
+    public Todo update(int id, Todo todo) {
         getById(id).ifPresent(existingTodo -> {
             existingTodo.setTitle(todo.getTitle());
             existingTodo.setCompleted(todo.isCompleted());
         });
+        return todo;
     }
 
     @Override
-    public void delete(int id) {
+    public Boolean delete(int id) {
         todos.removeIf(todo -> todo.getId() == id);
+        return true;
     }
 }

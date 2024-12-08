@@ -1,7 +1,7 @@
 package ex.interfaces.presenter.todo;
 
 import ex.interfaces.presenter.todo.model.ListTodoJsonOutput;
-import ex.usecase.todo.*;
+import ex.usecase.todo.dto.ListTodoOutput;
 
 public class ListTodoJson implements ListTodoJsonPresenter {
 

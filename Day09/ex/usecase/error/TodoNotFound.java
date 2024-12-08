@@ -1,8 +1,8 @@
 package ex.usecase.error;
 
 public class TodoNotFound extends Exception {
-    public TodoNotFound() {
-        super("Todo not found");
+    public TodoNotFound(int id) {
+        super("Todo with id " + id + " not found");
     }
 
     public TodoNotFound(String message) {

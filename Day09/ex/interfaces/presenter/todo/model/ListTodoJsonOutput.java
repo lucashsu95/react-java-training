@@ -1,6 +1,6 @@
 package ex.interfaces.presenter.todo.model;
 
-import ex.usecase.todo.ListTodoOutput;
+import ex.usecase.todo.dto.ListTodoOutput;
 
 public class ListTodoJsonOutput {
     private final boolean success;

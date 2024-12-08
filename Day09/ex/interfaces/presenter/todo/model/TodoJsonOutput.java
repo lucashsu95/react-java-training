@@ -13,9 +13,15 @@ public class TodoJsonOutput {
         this.message = message;
     }
 
+    public TodoJsonOutput(boolean success, String message) {
+        this.success = success;
+        this.data = null;
+        this.message = message;
+    }
+
     @Override
     public String toString() {
-        return "ListTodoResponse{\n" +
+        return "Response{\n" +
                 "  success=" + success + ",\n" +
                 "  data=" + data + ",\n" +
                 "  message='" + message + "'\n" +
