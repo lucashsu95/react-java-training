@@ -27,14 +27,8 @@ public class TodoController {
 
     public void createTodo(Todo todo) {
         try {
-            if (todo == null) {
-                throw new IllegalArgumentException("Todo cannot be null");
-            }
-            if (todo.getTitle() == null || todo.getTitle().isEmpty()) {
-                throw new IllegalArgumentException("Title cannot be empty");
-            }
-            usecase.CreateTodo().execute(todo);
-            System.out.println(presenter.CreateTodo().Output(todo));
+            Todo newTodo = usecase.CreateTodo().execute(todo);
+            System.out.println(presenter.CreateTodo().Output(newTodo));
         } catch (Exception e) {
             System.out.println(presenter.CreateTodo().Error(e));
         }

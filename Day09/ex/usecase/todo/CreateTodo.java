@@ -12,7 +12,7 @@ public class CreateTodo implements CreateTodoUsecase {
     }
 
     @Override
-    public Todo execute(Todo todo) throws IllegalArgumentException {
+    public Todo execute(Todo todo) throws Exception {
         TodoValidator.validate(todo);
         Todo output = repo.create(todo);
         return output;
