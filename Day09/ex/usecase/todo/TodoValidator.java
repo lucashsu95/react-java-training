@@ -1,5 +1,5 @@
 
-package ex.usecase.error;
+package ex.usecase.todo;
 
 import ex.domain.entity.Todo;
 

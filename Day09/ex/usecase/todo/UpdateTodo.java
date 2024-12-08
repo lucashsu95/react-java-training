@@ -3,7 +3,6 @@ package ex.usecase.todo;
 import ex.domain.entity.Todo;
 import ex.domain.repository.TodoRepository;
 import ex.usecase.error.TodoNotFound;
-import ex.usecase.error.TodoValidator;
 
 public class UpdateTodo implements UpdateTodoUsecase {
     private final TodoRepository repo;

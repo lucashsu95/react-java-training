@@ -2,7 +2,6 @@ package ex.usecase.todo;
 
 import ex.domain.entity.Todo;
 import ex.domain.repository.TodoRepository;
-import ex.usecase.error.TodoValidator;
 
 public class CreateTodo implements CreateTodoUsecase {
     private final TodoRepository repo;
