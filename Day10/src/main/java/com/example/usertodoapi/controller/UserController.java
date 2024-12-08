@@ -31,24 +31,28 @@ public class UserController {
         }
     }
 
-    // @GetMapping("/{id}")
-    // public String getById(@PathVariable int id) {
-    // return "Get user by id: " + id;
-    // }
+    @GetMapping("/{id}")
+    public String getById(@PathVariable int id) {
+        try{
+            User user = 
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 
-    // @PostMapping
-    // public String create() {
-    // return "Create user";
-    // }
+    @PostMapping
+    public String create() {
+    return "Create user";
+    }
 
-    // @PutMapping("/{id}")
-    // public String update(@PathVariable int id) {
-    // return "Update user by id: " + id;
-    // }
+    @PutMapping("/{id}")
+    public String update(@PathVariable int id) {
+    return "Update user by id: " + id;
+    }
 
-    // @DeleteMapping("/{id}")
-    // public String delete(@PathVariable int id) {
-    // return "Delete user by id: " + id;
-    // }
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable int id) {
+    return "Delete user by id: " + id;
+    }
 
 }

@@ -6,11 +6,16 @@ public class Todo {
     private String title;
     private boolean completed;
 
-    // Constructors, Getters, and Setters
-    public Todo() {}
+    public Todo() {
+    }
 
     public Todo(int id, String title, boolean completed) {
         this.id = id;
+        this.title = title;
+        this.completed = completed;
+    }
+
+    public Todo(String title, boolean completed) {
         this.title = title;
         this.completed = completed;
     }
@@ -31,11 +36,24 @@ public class Todo {
         this.title = title;
     }
 
+    public boolean getCompleted() {
+        return completed;
+    }
+
     public boolean isCompleted() {
         return completed;
     }
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    @Override
+    public String toString() {
+        return "Todo{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", completed=" + completed +
+                '}';
     }
 }

@@ -2,17 +2,19 @@ package ex.infrastructure.repository;
 
 import ex.domain.entity.Todo;
 import ex.domain.repository.TodoRepository;
+import ex.usecase.todo.ListTodoOutput;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class InMemoryTodoRepository implements TodoRepository {
+public class TodoRepositoryInMemory implements TodoRepository {
     private final List<Todo> todos = new ArrayList<>();
+    private static int currentId = 1;
 
     @Override
-    public List<Todo> getAll() {
-        return new ArrayList<>(todos);
+    public ListTodoOutput getAll() {
+        return new ListTodoOutput(new ArrayList<>(todos));
     }
 
     @Override
@@ -21,8 +23,10 @@ public class InMemoryTodoRepository implements TodoRepository {
     }
 
     @Override
-    public void create(Todo todo) {
+    public Todo create(Todo todo) {
+        todo.setId(currentId++);
         todos.add(todo);
+        return todo;
     }
 
     @Override

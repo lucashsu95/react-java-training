@@ -1,26 +1,40 @@
 package ex.controller;
 
 import ex.domain.entity.Todo;
-import ex.usecase.ListTodoUseCase;
-import ex.interfaces.presenter.TodoPresenter;
-
-import java.util.List;
+import ex.interfaces.presenter.TodoJsonPresenter;
+import ex.usecase.TodoUsecase;
+import ex.usecase.todo.ListTodoOutput;
 
 public class TodoController {
-    private final ListTodoUseCase listTodoUseCase;
-    private final TodoPresenter todoPresenter;
+    private final TodoUsecase usecase;
+    private final TodoJsonPresenter presenter;
 
-    public TodoController(ListTodoUseCase listTodoUseCase, TodoPresenter todoPresenter) {
-        this.listTodoUseCase = listTodoUseCase;
-        this.todoPresenter = todoPresenter;
+    public TodoController(TodoUsecase todoUsecase, TodoJsonPresenter todoPresenter) {
+        this.usecase = todoUsecase;
+        this.presenter = todoPresenter;
     }
 
-    public TodoPresenter.ListTodoResponse listTodos() {
+    public void listTodos() {
         try {
-            List<Todo> todos = listTodoUseCase.execute();
-            return todoPresenter.success(todos);
+            ListTodoOutput todos = usecase.ListTodo();
+            System.out.println(presenter.ListTodo().Output(todos));
         } catch (Exception e) {
-            return todoPresenter.error(e.getMessage());
+            System.out.println(presenter.ListTodo().Error(e));
+        }
+    }
+
+    public void createTodo(Todo todo) {
+        try {
+            if (todo == null) {
+                throw new IllegalArgumentException("Todo cannot be null");
+            }
+            if (todo.getTitle() == null || todo.getTitle().isEmpty()) {
+                throw new IllegalArgumentException("Title cannot be empty");
+            }
+            usecase.CreateTodo().execute(todo);
+            System.out.println(presenter.CreateTodo().Output(todo));
+        } catch (Exception e) {
+            System.out.println(presenter.CreateTodo().Error(e));
         }
     }
 }
