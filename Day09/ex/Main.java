@@ -5,7 +5,9 @@ import ex.domain.entity.Todo;
 import ex.domain.repository.TodoRepository;
 import ex.infrastructure.repository.TodoRepositoryInMemory;
 import ex.interfaces.presenter.TodoJsonPresenter;
-import ex.interfaces.presenter.todo.*;
+import ex.interfaces.presenter.TodoXmlPresenter;
+import ex.interfaces.presenter.todo.xml.*;
+import ex.interfaces.presenter.todo.json.*;
 import ex.usecase.TodoUsecase;
 import ex.usecase.todo.*;
 
@@ -20,20 +22,38 @@ public class Main {
         DeleteTodoUsecase deleteTodoUsecase = new DeleteTodo(repository);
         UpdateTodoUsecase updateTodoUsecase = new UpdateTodo(repository);
 
-        // presenter
-        ListTodoJsonPresenter listTodoJsonPresenter = new ListTodoJson();
-        CreateTodoJsonPresenter createTodoJsonPresenter = new CreateTodoJson();
-        DeleteTodoJsonPresenter deleteTodoJsonPresenter = new DeleteTodoJson();
-        UpdateTodoJsonPresenter updateTodoJsonPresenter = new UpdateTodoJson();
+        // presenter json
+        ListTodoJsonPresenter listTodoJsonPresenter = new ListTodoJsonPresenter();
+        CreateTodoJsonPresenter createTodoJsonPresenter = new CreateTodoJsonPresenter();
+        DeleteTodoJsonPresenter deleteTodoJsonPresenter = new DeleteTodoJsonPresenter();
+        UpdateTodoJsonPresenter updateTodoJsonPresenter = new UpdateTodoJsonPresenter();
+        
+        // presenter for json
+        ListTodoXmlPresenter listTodoXmlPresenter = new ListTodoXmlPresenter();
+        CreateTodoXmlPresenter createTodoXmlPresenter = new CreateTodoXmlPresenter();
+        DeleteTodoXmlPresenter deleteTodoXmlPresenter = new DeleteTodoXmlPresenter();
+        UpdateTodoXmlPresenter updateTodoXmlPresenter = new UpdateTodoXmlPresenter();
 
         // Facade
-        TodoUsecase todoUsecase = new TodoUsecase(listTodoUsecase, createTodoUsecase, deleteTodoUsecase,
+        TodoUsecase todoUsecase = new TodoUsecase(
+                listTodoUsecase,
+                createTodoUsecase,
+                deleteTodoUsecase,
                 updateTodoUsecase);
-        TodoJsonPresenter todoJsonPresenter = new TodoJsonPresenter(listTodoJsonPresenter, createTodoJsonPresenter,
-                deleteTodoJsonPresenter, updateTodoJsonPresenter);
+        TodoJsonPresenter todoJsonPresenter = new TodoJsonPresenter(
+                listTodoJsonPresenter,
+                createTodoJsonPresenter,
+                deleteTodoJsonPresenter,
+                updateTodoJsonPresenter);
+        TodoXmlPresenter todoXmlPresenter = new TodoXmlPresenter(
+                listTodoXmlPresenter,
+                createTodoXmlPresenter,
+                deleteTodoXmlPresenter,
+                updateTodoXmlPresenter);
 
         // controller
         TodoController todoController = new TodoController(todoUsecase, todoJsonPresenter);
+        // TodoController todoController = new TodoController(todoUsecase, todoXmlPresenter);
 
         Todo todo = new Todo("Sample Todo", false);
         Todo todo2 = new Todo("", false);

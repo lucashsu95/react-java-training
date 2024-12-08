@@ -2,12 +2,14 @@ package ex.controller;
 
 import ex.domain.entity.Todo;
 import ex.interfaces.presenter.TodoJsonPresenter;
+// import ex.interfaces.presenter.TodoXmlPresenter;
 import ex.usecase.TodoUsecase;
 import ex.usecase.todo.dto.ListTodoOutput;
 
 public class TodoController {
     private final TodoUsecase usecase;
     private final TodoJsonPresenter presenter;
+    // private final TodoXmlPresenter presenter;
 
     public TodoController(TodoUsecase todoUsecase, TodoJsonPresenter todoPresenter) {
         this.usecase = todoUsecase;

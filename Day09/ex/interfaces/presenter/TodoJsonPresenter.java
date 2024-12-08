@@ -1,9 +1,9 @@
 package ex.interfaces.presenter;
 
-import ex.interfaces.presenter.todo.CreateTodoJsonPresenter;
-import ex.interfaces.presenter.todo.ListTodoJsonPresenter;
-import ex.interfaces.presenter.todo.UpdateTodoJsonPresenter;
-import ex.interfaces.presenter.todo.DeleteTodoJsonPresenter;
+import ex.interfaces.presenter.todo.json.CreateTodoJsonPresenter;
+import ex.interfaces.presenter.todo.json.ListTodoJsonPresenter;
+import ex.interfaces.presenter.todo.json.UpdateTodoJsonPresenter;
+import ex.interfaces.presenter.todo.json.DeleteTodoJsonPresenter;
 
 public class TodoJsonPresenter {
     private final CreateTodoJsonPresenter createTodo;
