@@ -28,7 +28,7 @@ public class Main {
         DeleteTodoJsonPresenter deleteTodoJsonPresenter = new DeleteTodoJsonPresenter();
         UpdateTodoJsonPresenter updateTodoJsonPresenter = new UpdateTodoJsonPresenter();
         
-        // presenter for json
+        // presenter xml
         ListTodoXmlPresenter listTodoXmlPresenter = new ListTodoXmlPresenter();
         CreateTodoXmlPresenter createTodoXmlPresenter = new CreateTodoXmlPresenter();
         DeleteTodoXmlPresenter deleteTodoXmlPresenter = new DeleteTodoXmlPresenter();
