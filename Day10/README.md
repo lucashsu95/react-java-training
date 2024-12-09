@@ -1,8 +1,12 @@
-# User - Todo
+# User - Todo 待辦事項管理(使用DDD架構實作)
 
-- Java17
-- mvn
-- mariadb:10.4.32
+## Introduce
+
+- [前端 React + Tailwindcss(沿用XD)](../Day7/user-todo/)
+- **後端 Sprint Boot**
+  - Java17
+  - mvn
+  - mariadb:10.4.32
 
 ## How to Start
 ```bash
@@ -13,7 +17,7 @@ docker-compose up -d
 
 使用`http://127.0.0.1:8000/api/users` `GET`測試
 
-### test
+### Test
 ```bash
 docker run -it --rm user-todo-image bash
 ```
