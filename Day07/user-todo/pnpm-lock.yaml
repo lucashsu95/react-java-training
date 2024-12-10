@@ -14,6 +14,9 @@ importers:
       axios-api-gen:
         specifier: ^0.1.2
         version: 0.1.2
+      nanoid:
+        specifier: ^5.0.9
+        version: 5.0.9
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -21,8 +24,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       sweetalert2:
-        specifier: ^11.12.4
-        version: 11.12.4
+        specifier: ^11.6.13
+        version: 11.6.13
     devDependencies:
       '@eslint/js':
         specifier: ^9.9.0
@@ -1245,6 +1248,11 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  nanoid@5.0.9:
+    resolution: {integrity: sha512-Aooyr6MXU6HpvvWXKoVoXwKMs/KyVakWwg7xQfv5/S/RIgJMy0Ifa45H9qqYy7pTCszrHzP21Uk4PZq2HpEM8Q==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
@@ -1571,8 +1579,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  sweetalert2@11.12.4:
-    resolution: {integrity: sha512-ZSpyaLbAmn4b7xjnV9x9BFD1UOrCAhIzm1D8dZ443kGxtVKqbTIA5SgXs4xeEtmFfEXUyC3RBgpSlu1AXmCiHA==}
+  sweetalert2@11.6.13:
+    resolution: {integrity: sha512-n5yVF0FNx1lm4XzpPyb1HIaiptzODfVyeCzmB809tpK+1bPdoKoevKOxYjrtId75DV7xuIp4r6cjn8xUAB8dPQ==}
 
   tailwindcss@3.4.10:
     resolution: {integrity: sha512-KWZkVPm7yJRhdu4SRSl9d4AK2wM3a50UsvgHZO7xY77NQr2V+fIrEuoDGQcbvswWvFGbS2f6e+jC/6WJm1Dl0w==}
@@ -2946,6 +2954,8 @@ snapshots:
 
   nanoid@3.3.7: {}
 
+  nanoid@5.0.9: {}
+
   natural-compare@1.4.0: {}
 
   node-releases@2.0.18: {}
@@ -3312,7 +3322,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  sweetalert2@11.12.4: {}
+  sweetalert2@11.6.13: {}
 
   tailwindcss@3.4.10:
     dependencies:
